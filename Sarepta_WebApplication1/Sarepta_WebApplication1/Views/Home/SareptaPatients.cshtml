@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Sarepta_WebApplication1.Models.Patients>
+
+
+<h2>Pacientes de Sarepta</h2>
+
+<div class="StrongBoxInfo">
+    <h4 id="ReadMoreButton" style="cursor: pointer">Despliegue el boton para leer las instrucciones.</h4><br>
+    <div style="max-width:500px; display: none" id="ReadMoreDiv">
+
+        <b>Consulta de Pacientes</b><br>
+        <p>Puede consultar libremente la informacion sobre los pacientes</p><br>
+
+        <b>Seguridad</b><br>
+        <p>Seguridad a la hora de guardar y consultar datos</p><br>
+
+    </div>
+</div>
+
+
+<table id="example" class="display" style="width:85%" align="center">
+
+    <tr style="vertical-align:central;border:2px solid #c0c0c0;">
+        <th style="width:20%">
+            ID
+        </th>
+        <th style="width:20%">
+            Name
+        </th>
+        <th style="width:20%">
+            Cell_phone
+        </th>
+        <th style="width:20%">
+            Gender
+        </th>
+        <th style="width:20%">
+            Date
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {      
+        <tbody id="">
+            <tr>
+                <td style="width:20%">
+                    @Html.DisplayFor(modelItem => item.PatientId)
+                </td>
+
+                <td style="width:20%">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+
+
+                <td style="width:20%">
+                    @Html.DisplayFor(modelItem => item.CellphoneNumber)
+                </td>
+
+
+                <td style="width:20%">
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+
+
+                <td style="width:20%">
+                    @Html.DisplayFor(modelItem => item.CreatedAt)
+                </td>
+            </tr>
+        </tbody>
+    }
+</table><br><br>
+

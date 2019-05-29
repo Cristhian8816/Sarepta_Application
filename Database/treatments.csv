@@ -1,0 +1,21 @@
+treatment_id,name,price
+1,"Corona MP",700000
+2,"Protesis Parcial Superior Acrilico",800000
+3,"Resina de Fotocurado",50000
+4,Profilaxis,80000
+5,"Placa Neomiorelajante",300000
+6,"Protesis Parcial Superior Flexidem",1200000
+7,"Corona C",1000000
+8,"Tratamiento Endodontico Uniradicular",200000
+9,"Tratamiento Endodontico Biradicular",250000
+10,"Tratamiento Endodontico Multiradicular",300000
+11,Implante,2600000
+12,"Protesis Fija 3 UNidades",2400000
+13,"Protesis Total Superior",1000000
+14,"Protesis Total Inferior",1000000
+15,Nucleo,100000
+16,"Protesis Parcial Inferior Flexidem",1200000
+17,Exodoncia,120000
+18,Urgencia,150000
+19,"Protesis Parcial Inferior Acrilico",800000
+20,Avadment,500000

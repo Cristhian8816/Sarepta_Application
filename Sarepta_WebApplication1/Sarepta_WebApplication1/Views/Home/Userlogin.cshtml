@@ -1,0 +1,20 @@
+﻿@model Sarepta_WebApplication1.Models.userAccount
+
+<h2>Login de Usuario</h2>
+
+<div class="container" style="width:40%; margin-top:2%">
+    @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+    {
+        @Html.Label("Usuario: ")
+        @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @placeholder = "Nombre de Usuario" })<br />
+        @Html.Label("Password: ")
+        @Html.TextBoxFor(model => model.Password, new { @class = "form-control", @placeholder = "Clave" })<br />     
+
+        <input type="submit" value="Registrar" class="btn-register" style="background-color:#B45F04; font-size:15px;
+                         text-align:center; width: 150px; height:50px; padding:10px  20px 10px 20px; margin-top: 12px;
+                         border-radius: 4px; color: white" />
+        @Html.ValidationSummary()
+    }
+
+</div>
+

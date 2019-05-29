@@ -1,0 +1,33 @@
+﻿@model Sarepta_WebApplication1.Models.userAccount
+
+<h2>Creacion de un Nuevo Usuario</h2><br />
+<p>
+    
+</p><br />
+
+    <div class="container" style="width:40%; margin-top:2%">
+        @using (Html.BeginForm("Register", "Home", FormMethod.Post))
+        {
+            @Html.Label("ID de Usuario: ")
+            @Html.TextBoxFor(model => model.UserID, new { @class = "form-control", @placeholder = "ID" })<br />
+            @Html.Label("Primer Nombre: ")
+            @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", @placeholder = "Primer Nombre" })<br />
+            @Html.Label("Primer Apellido: AAAA-MM-DD")
+            @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", @placeholder = "Primer Apellido" })<br />
+            @Html.Label("Correo Electronico: ")
+            @Html.TextBoxFor(model => model.email, new { @class = "form-control", @placeholder = "e-mail" })<br />
+            @Html.Label("Nombre de Usuario:")
+            @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @placeholder = "Nombre de Usuario" })<br />
+            @Html.Label("Digite la clave: ")
+            @Html.TextBoxFor(model => model.Password, new { @class = "form-control", @placeholder = "Clave" })<br />
+            @Html.Label("Confirme la clave: ")
+            @Html.TextBoxFor(model => model.ConfirmPassword, new { @class = "form-control", @placeholder = "Confirme Clave" })<br />
+
+
+            <input type="submit" value="Registrar" class="btn-register" style="background-color:#B45F04; font-size:15px;
+                         text-align:center; width: 150px; height:50px; padding:10px  20px 10px 20px; margin-top: 12px;
+                         border-radius: 4px; color: white" />
+            @Html.ValidationSummary()
+        }
+
+    </div>
