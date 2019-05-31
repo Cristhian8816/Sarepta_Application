@@ -78,6 +78,11 @@ namespace Sarepta_WebApplication1.Models
                    .HasColumnName("city")
                    .HasMaxLength(50)
                    .IsUnicode(false);
+
+                entity.Property(e => e.cedula)
+                   .HasColumnName("cedula")
+                   .HasMaxLength(12)
+                   .IsUnicode(true);
             });
 
             modelBuilder.Entity<Payments>(entity =>

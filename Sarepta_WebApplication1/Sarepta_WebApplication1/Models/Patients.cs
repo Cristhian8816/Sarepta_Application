@@ -31,6 +31,9 @@ namespace Sarepta_WebApplication1.Models
 
         [StringLength(20)]
         public string city { get; set; }
+
+        [StringLength(12)]
+        public string cedula { get; set; }
     }
 
     public enum Gender

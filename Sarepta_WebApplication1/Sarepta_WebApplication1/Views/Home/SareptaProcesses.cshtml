@@ -1,0 +1,58 @@
+﻿@model Sarepta_WebApplication1.Models.Patient_Treatment
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
+<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="https://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+
+<script>
+    jQuery(document).ready(function ($) {
+        $(function () {
+            $("#datepicker").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '2019:2020'
+            });
+        });
+    });
+</script>
+
+<h1>Bienvenida Doctora Alma Lizcano</h1>
+<h2>Registro de un Nuevo Proceso Odontologico</h2><br />
+<p>
+
+</p><br />
+
+    <div class="container" style="width:40%; margin-top:2%">
+        @using (Html.BeginForm("proceso", "Home", FormMethod.Post))
+        {
+            @Html.Label("Digite Numero de Documento del paciente al que se le va a asignar el procedimiento: ")
+            @Html.TextBoxFor(model => model.patient.cedula, new { @class = "form-control", @placeholder = "Documento de Identidad", autocomplete = "off" })<br />
+            @Html.Label("Seleccion el tratamiento:")
+            @Html.DropDownListFor(model => model.treatment.Name, new SelectList(Enum.GetValues(typeof(Name))), new { @class = "form-control", @placeholder = "Procedimiento" })<br />
+            @Html.Label("Tratamiento a Domicilio:")
+            @Html.DropDownListFor(model => model.process.Home, new SelectList(Enum.GetValues(typeof(Home))), "Procedimiento a Domicilio", new { @class = "form-control", @placeholder = "Domicilio" })<br />
+            @Html.Label("Dientes intervenidos")
+            @Html.TextBoxFor(model => model.process.Tooth, new { @class = "form-control", @placeholder = "Dientes", autocomplete = "off" })<br />
+            <h2>Gastos </h2>
+            @Html.Label("Laboratorio: ")
+            @Html.TextBoxFor(model => model.process.Laboratory, new { @class = "form-control", @placeholder = "Gastos Laboratorio", autocomplete = "off" })<br />
+            @Html.Label("Consultorio: ")
+            @Html.TextBoxFor(model => model.process.Consultory, new { @class = "form-control", @placeholder = "Gastos Consultorio", autocomplete = "off" })<br />
+            @Html.Label("Auxiliar: ")
+            @Html.TextBoxFor(model => model.process.Assistant, new { @class = "form-control", @placeholder = "Gastos Auxiliar", autocomplete = "off" })<br />
+            @Html.Label("Materiales:")
+            @Html.TextBoxFor(model => model.process.Materials, new { @class = "form-control", @placeholder = "Gastos Materiales", autocomplete = "off" })<br />
+            @Html.Label("Transporte: ")
+            @Html.TextBoxFor(model => model.process.Transport, new { @class = "form-control", @placeholder = "Gastos Transporte", autocomplete = "off" })<br />
+            @Html.Label("Fecha de Registro Proceso: ")
+            @Html.TextBoxFor(model => model.process.Date, new { @class = "form-control", @placeholder = "Fecha Procedimiento", @id = "datepicker", autocomplete = "off" })<br />
+
+
+            <input type="submit" value="Registrar Procedimiento" class="btn-register" style="background-color:#B45F04; font-size:15px;
+                         text-align:center; width: 250px; height:50px; padding:10px  20px 10px 20px; margin-top: 12px;
+                         border-radius: 4px; color: white" />
+            @Html.ValidationSummary()
+        }
+
+    </div>
+

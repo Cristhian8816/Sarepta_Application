@@ -48,9 +48,12 @@ namespace Sarepta_WebApplication1.Controllers
         public IActionResult Register(userAccount account)
         {
             if(ModelState.IsValid)
-            {
+            {               
                 using (UsersContext db = new UsersContext())
                 {
+                    var amount_Users = db.userAccount.Count();
+                    amount_Users++;
+                    account.UserID = amount_Users;
                     db.userAccount.Add(account);
                     db.SaveChanges();
                 }
@@ -61,16 +64,14 @@ namespace Sarepta_WebApplication1.Controllers
             else
             {
                 return View("RegisterVIew");
-            }
-
-
-            
-;        }
+            }          
+        }
 
         public IActionResult Userlogin()
         {
             return View();
         }
+
         public IActionResult Login(userAccount user)
         {
             using (UsersContext db = new UsersContext())
@@ -111,6 +112,62 @@ namespace Sarepta_WebApplication1.Controllers
             return View(patient);
         }
 
+        public IActionResult SareptaProcesses()
+        {
+            Patients patient = new Patients();
+            Treatments treatment = new Treatments();
+            Processes process = new Processes();
+
+            Patient_Treatment patient_treatment = new Patient_Treatment();
+
+            return View(patient_treatment);
+        }
+
+        public IActionResult proceso(Patient_Treatment model)
+        {          
+            using (UsersContext db = new UsersContext())
+            {
+                var identification = db.Patients.Single(c => c.cedula  == model.patient.cedula);
+                var tratamiento = db.Treatments.Single(t => t.Name == model.treatment.Name);
+                if (identification != null && tratamiento != null)
+                {
+                    Patients patient = new Patients();
+                    Processes process = new Processes();
+
+                    var amount_processes = db.Processes.Count();
+                    amount_processes++;
+                    process.ProcessId = amount_processes;
+                    process.PatientId = identification.PatientId;
+                    process.TreatmentsId = tratamiento.TreatmentId;
+                    process.Home = model.process.Home;
+                    process.Tooth = model.process.Tooth;
+                    process.Laboratory = model.process.Laboratory;
+                    process.Consultory = model.process.Consultory;
+                    process.Assistant = model.process.Assistant;
+                    process.Materials = model.process.Materials;
+                    process.Transport = model.process.Transport;
+                    process.Date = model.process.Date;
+
+                    db.Processes.Add(process);
+                    db.SaveChanges();
+                    //colocar vista de exitoso ingreso de procedimiento
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Paciente no encontrado en la base de datos");
+                    //regresar a la vista del formulario
+                }
+            }                      
+            return RedirectToAction("SareptaPatients");
+        }
+
+        public IActionResult SareptaTreatments()
+        {
+            UsersContext db = new UsersContext();
+            var data = db.Treatments;
+            return View(data);            
+        }
+
         public IActionResult SaveRecord(Patients model)
         {
             if(ModelState.IsValid)
@@ -124,6 +181,7 @@ namespace Sarepta_WebApplication1.Controllers
 
                     Patients pat = new Patients();
                     pat.PatientId = amount_Patients;
+                    pat.cedula = model.cedula;
                     pat.Name = model.Name;
                     pat.CellphoneNumber = model.CellphoneNumber;
                     pat.Birthdate = model.Birthdate;

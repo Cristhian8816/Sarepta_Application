@@ -17,4 +17,9 @@ namespace Sarepta_WebApplication1.Models
         public int Transport { get; set; }
         public DateTime Date { get; set; }
     }
+    public enum Home
+    {
+        si,
+        no
+    }
 }

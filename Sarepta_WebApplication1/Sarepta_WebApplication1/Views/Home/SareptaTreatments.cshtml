@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Sarepta_WebApplication1.Models.Treatments>
+
+
+<h2>Lista de tratamientos Sarepta</h2>
+
+<div>
+    <table>
+        <tbody>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Tratamiento
+                </th>
+                <th>
+                    Valor
+                </th>               
+            </tr>
+            <tr>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TreatmentId)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        <span class="table-remove glyphicon glyphicon-remove"></span>
+                    </td>
+                    <td></td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+

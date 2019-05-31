@@ -1,6 +1,20 @@
 ﻿@model Sarepta_WebApplication1.Models.Patients
 
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
+<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="https://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
 
+<script>
+    jQuery(document).ready(function ($) {	
+	    $( function() {
+            $("#datepicker").datepicker({
+                changeMonth: true,
+                changeYear: true,          
+                yearRange: '1920:2020'
+            });
+        });
+    });
+</script>
 
 <h1>Bienvenida Doctora Alma Lizcano</h1>
 <h2>Registro de un Nuevo Paciente</h2><br />
@@ -10,31 +24,33 @@
     de guardado de la informacion en la base de datos.
 </p><br />
 
-<div class="container" style="width:40%; margin-top:2%">
-    @using (Html.BeginForm("SaveRecord", "Home", FormMethod.Post))
-    {
-        @Html.Label("Nombre Completo: ")
-        @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @placeholder = "Nombre Completo" })<br />
-        @Html.Label("Numero celular: ")
-        @Html.TextBoxFor(model => model.CellphoneNumber, new { @class = "form-control", @placeholder = "Celular" })<br />
-        @Html.Label("Fecha de Nacimiento: AAAA-MM-DD")
-        @Html.TextBoxFor(model => model.Birthdate, new { @class = "form-control", @placeholder = "Fecha Nacimiento" })<br />
-        @Html.Label("Correo Electronico: ")
-        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @placeholder = "e-mail" })<br />
-        @Html.Label("Sexo:")
-        @Html.DropDownListFor(model => model.Gender, new SelectList(Enum.GetValues(typeof(Gender))), "Selecione Genero", new { @class = "form-control", @placeholder = "Genero" })<br />
-        @Html.Label("Direccion: ")
-        @Html.TextBoxFor(model => model.Address, new { @class = "form-control", @placeholder = "Direccion" })<br />
-        @Html.Label("Fecha de Registro: ")
-        @Html.TextBoxFor(model => model.CreatedAt, new { @class = "form-control", @value = DateTime.Today, @readonly = "readonly" })<br />
-        @Html.Label("Ciudad de Origen: ")
-        @Html.TextBoxFor(model => model.city, new { @class = "form-control", @placeholder = "Ciudad" })<br />
+    <div class="container" style="width:40%; margin-top:2%">
+        @using (Html.BeginForm("SaveRecord", "Home", FormMethod.Post))
+        {
+            @Html.Label("Numero de Documento: ")
+            @Html.TextBoxFor(model => model.cedula, new { @class = "form-control", @placeholder = "Documento de Identidad", autocomplete = "off" })<br />
+            @Html.Label("Nombre Completo: ")
+            @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @placeholder = "Nombre Completo", autocomplete = "off" })<br />
+            @Html.Label("Numero celular: ")
+            @Html.TextBoxFor(model => model.CellphoneNumber, new { @class = "form-control", @placeholder = "Celular", autocomplete = "off" })<br />
+            @Html.Label("Fecha de Nacimiento: ")
+            @Html.TextBoxFor(model => model.Birthdate, new { @class = "form-control", @placeholder = "Fecha Nacimiento", @id = "datepicker", autocomplete = "off" })<br />
+            @Html.Label("Correo Electronico: ")
+            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @placeholder = "e-mail", autocomplete = "off" })<br />
+            @Html.Label("Sexo:")
+            @Html.DropDownListFor(model => model.Gender, new SelectList(Enum.GetValues(typeof(Gender))), "Selecione Genero", new { @class = "form-control", @placeholder = "Genero" })<br />
+            @Html.Label("Direccion: ")
+            @Html.TextBoxFor(model => model.Address, new { @class = "form-control", @placeholder = "Direccion", autocomplete = "off" })<br />
+            @Html.Label("Fecha de Registro: ")
+            @Html.TextBoxFor(model => model.CreatedAt, new { @class = "form-control", @value = DateTime.Now.ToString("yyyy-MM-dd"), @readonly = "readonly" })<br />
+            @Html.Label("Ciudad de Origen: ")
+            @Html.TextBoxFor(model => model.city, new { @class = "form-control", @placeholder = "Ciudad" })<br />
 
-        <input type="submit" value="Registrar" class="btn-register" style="background-color:#B45F04; font-size:15px;
+            <input type="submit" value="Registrar" class="btn-register" style="background-color:#B45F04; font-size:15px;
                          text-align:center; width: 150px; height:50px; padding:10px  20px 10px 20px; margin-top: 12px;
                          border-radius: 4px; color: white" />
-        @Html.ValidationSummary()
-    }
+            @Html.ValidationSummary()
+        }
 
-</div>
+    </div>
 
