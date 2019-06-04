@@ -16,7 +16,6 @@
     });
 </script>
 
-<h1>Bienvenida Doctora Alma Lizcano</h1>
 <h2>Registro de un Nuevo Paciente</h2><br />
 <p>
     A continuacion encontrarà el formulario para el registro de un nuveo paciente con sus respectivos datos, al terminar
@@ -25,7 +24,7 @@
 </p><br />
 
     <div class="container" style="width:40%; margin-top:2%">
-        @using (Html.BeginForm("SaveRecord", "Home", FormMethod.Post))
+        @using (Html.BeginForm("Patient", "Patients", FormMethod.Post))
         {
             @Html.Label("Numero de Documento: ")
             @Html.TextBoxFor(model => model.cedula, new { @class = "form-control", @placeholder = "Documento de Identidad", autocomplete = "off" })<br />

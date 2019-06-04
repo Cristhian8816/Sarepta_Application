@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Sarepta_WebApplication1.Models.Patient_Treatment>
+
+
+<h2>Paciente y sus Procesos</h2>
+
+<div>
+    <table>
+        <tbody>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Nombre
+                </th>
+                <th>
+                    Fecha
+                </th>
+                <th>
+                    Tratamiento
+                </th>
+            <tr>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.treatment_Name)
+                    </td>
+                </tr>
+                }
+        </tbody>
+    </table>
+ </div>
+

@@ -9,12 +9,12 @@
         @Html.Label("Usuario: ")
         @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @placeholder = "Nombre de Usuario", autocomplete = "off" })<br />
         @Html.Label("Password: ")
-        @Html.TextBoxFor(model => model.Password, new { @class = "form-control", @placeholder = "Clave", autocomplete = "off" })<br />     
-
+        @Html.PasswordFor(model => model.Password, new { @class = "form-control", @placeholder = "Clave", autocomplete = "off" , @value=""})<br />
+       
         <input type="submit" value="Ingresar" class="btn-register" style="background-color:#B45F04; font-size:15px;
                          text-align:center; width: 150px; height:50px; padding:10px  20px 10px 20px; margin-top: 12px;
-                         border-radius: 4px; color: white" />
-        @Html.ValidationSummary()
+                         border-radius: 4px; color: white" /> <br />
+        @Html.ValidationMessageFor(model => model.UserName);
     }
 
 </div>

@@ -12,5 +12,10 @@ namespace Sarepta_WebApplication1.Models
         public Patients patient { get; set; }
         public Treatments treatment { get; set; }
         public Processes process { get; set; }
+
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public DateTime Date { get; set; }
+        public string treatment_Name { get; set; }
     }
 }
