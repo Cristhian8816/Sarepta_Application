@@ -26,8 +26,11 @@ VALUES (133, 60, 1, 0, NULL, 140000, 100000, 0, 600000, 0, '2019-05-16'),
 INSERT INTO "payments"
        VALUES (145,136,0,'cash','should',0,'2019-05-23',0);
 
-DELETE FROM "payments"
-       WHERE payment_id =145;
+DELETE FROM "processes"
+       WHERE process_id between 4 and 7;
+
+DELETE FROM "patients"
+       WHERE patient_id = 5;
 			  
                             
 UPDATE treatments
@@ -211,7 +214,7 @@ SELECT pat.patient_id,
   JOIN patients as pat
     ON pro.patient_id = pat.patient_id
   JOIN treatments as t
-    ON pro.treatment_id = t.treatment_id
+    ON pro.treatments_id = t.treatment_id
   JOIN payments as pay
     ON pay.process_id = pro.process_id
  WHERE pat.name ='Antonio Rodriguez';

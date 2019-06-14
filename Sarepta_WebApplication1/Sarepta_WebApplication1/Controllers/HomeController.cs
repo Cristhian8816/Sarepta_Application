@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Web;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Sarepta_WebApplication1.Models;
+using Microsoft.AspNetCore.Session;
+using Microsoft.AspNetCore.Http;
 
 namespace Sarepta_WebApplication1.Controllers
 {    
@@ -67,15 +70,17 @@ namespace Sarepta_WebApplication1.Controllers
         }
 
         public IActionResult Userlogin()
-        {
+        {         
             return View();
         }
 
+        [Authorize]
         public IActionResult MainSareptaSystem()
         {
-            return View();
+            return View(ViewBag.sessionv);
         }
 
+        [HttpPost]
         public IActionResult Login(userAccount user)
         {
             using (UsersContext db = new UsersContext())
@@ -83,15 +88,24 @@ namespace Sarepta_WebApplication1.Controllers
                 userAccount usr = db.userAccount.Where(u => u.UserName == user.UserName && u.Password == user.Password).FirstOrDefault();
                 if (usr != null)
                 {
-                    return RedirectToAction("MainSareptaSystem");
+                    //ViewBag.sessionv = HttpContext.Session.GetString(user.UserName);
+                    ViewBag.Sessionv = ((System.Security.Claims.ClaimsIdentity)((Microsoft.AspNetCore.Http.DefaultHttpContext)HttpContext).User.Identity).Name;
+                    return View("MainSareptaSystem");
+                    //return RedirectToAction("MainSareptaSystem");                    
                 }
                 else
                 {
-                    ModelState.AddModelError("UserName", "Nombre de Usuario o Password son incorrectos");
+                    ModelState.AddModelError("UserName", "Nombre de Usuario o Contraseña incorrectos");
                     return View("UserLogin");
-                }                      
+                }            
             }          
         }
+
+        //public IActionResult Logout(userAccount user)
+        //{
+            //HttpContext.Session.Remove(user.UserName);
+           // return View();
+        //}
 
         public IActionResult SareptaTreatments()
         {

@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Sarepta_WebApplication1.Models;
 
 namespace Sarepta_WebApplication1.Controllers
 {
+    [Authorize]
     public class ProcessesController : Controller
     {
         public IActionResult Index()
