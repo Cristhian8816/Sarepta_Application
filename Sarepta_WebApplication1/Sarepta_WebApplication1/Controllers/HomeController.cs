@@ -87,11 +87,9 @@ namespace Sarepta_WebApplication1.Controllers
             {                
                 userAccount usr = db.userAccount.Where(u => u.UserName == user.UserName && u.Password == user.Password).FirstOrDefault();
                 if (usr != null)
-                {
-                    //ViewBag.sessionv = HttpContext.Session.GetString(user.UserName);
+                {                   
                     ViewBag.Sessionv = ((System.Security.Claims.ClaimsIdentity)((Microsoft.AspNetCore.Http.DefaultHttpContext)HttpContext).User.Identity).Name;
-                    return View("MainSareptaSystem");
-                    //return RedirectToAction("MainSareptaSystem");                    
+                    return View("MainSareptaSystem");                                      
                 }
                 else
                 {
@@ -100,12 +98,6 @@ namespace Sarepta_WebApplication1.Controllers
                 }            
             }          
         }
-
-        //public IActionResult Logout(userAccount user)
-        //{
-            //HttpContext.Session.Remove(user.UserName);
-           // return View();
-        //}
 
         public IActionResult SareptaTreatments()
         {

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Sarepta_WebApplication1.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace Sarepta_WebApplication1.Controllers
 {
@@ -25,6 +26,7 @@ namespace Sarepta_WebApplication1.Controllers
 
             Patient_Treatment patient_treatment = new Patient_Treatment();
 
+            ViewBag.Sessionv = ((System.Security.Claims.ClaimsIdentity)((Microsoft.AspNetCore.Http.DefaultHttpContext)HttpContext).User.Identity).Name;
             return View(patient_treatment);
         }
 

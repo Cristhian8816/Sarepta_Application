@@ -29,8 +29,8 @@ INSERT INTO "payments"
 DELETE FROM "processes"
        WHERE process_id between 4 and 7;
 
-DELETE FROM "patients"
-       WHERE patient_id = 5;
+DELETE FROM UserAccounts
+       WHERE UserID = 3;
 			  
                             
 UPDATE treatments

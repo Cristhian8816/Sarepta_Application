@@ -1,0 +1,48 @@
+﻿@model Sarepta_WebApplication1.Models.Patient_Payment
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
+<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="https://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+
+<script>
+    jQuery(document).ready(function ($) {
+        $(function () {
+            $("#datepicker").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '2019:2020'
+            });
+        });
+    });
+</script>
+
+
+<h1>Bienvenida Doctora Alma Lizcano</h1>
+<h2>Registro de un Nuevo Pago a un Proceso Odontologico</h2><br />
+<p>
+
+</p><br />
+
+    <div class="container" style="width:40%; margin-top:2%">
+        @using (Html.BeginForm("paymentProcess", "Payments", FormMethod.Post))
+        {            
+            @Html.Label("Seleccion el Valor Ej: 100000, 2500000")
+            @Html.TextBoxFor(model => model.payment.Pay, new { @class = "form-control", @placeholder = "Valor del pago", autocomplete = "off" })<br />
+            @Html.Label("Tipo de Pago:")
+            @Html.DropDownListFor(model => model.payment.PayType, new SelectList(Enum.GetValues(typeof(Paytype))), "Seleccione el tipo de Pago", new { @class = "form-control", @placeholder = "Tipo Pago" })<br />
+            @Html.Label("Descuento")
+            @Html.TextBoxFor(model => model.payment.Discount, new { @class = "form-control", @placeholder = "Descuento", autocomplete = "off" })<br />
+            @Html.Label("Fecha de Registro Pago: ")
+            @Html.TextBoxFor(model => model.payment.PayDate, new { @class = "form-control", @value = DateTime.Now.ToString("yyyy-MM-dd"), @readonly = "readonly" })<br />
+
+
+            <input type="submit" value="Registrar Procedimiento" class="btn-register" style="background-color:#B45F04; font-size:15px;
+                    text-align:center; width: 250px; height:50px; padding:10px  20px 10px 20px; margin-top: 12px;
+                    border-radius: 4px; color: white" />
+
+            @Html.ValidationSummary();
+            @Html.ValidationMessageFor(model => model.patient.cedula);
+        }
+    </div>
+}
+

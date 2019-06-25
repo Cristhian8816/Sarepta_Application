@@ -2,13 +2,13 @@
 
 @{
     if (ViewBag.Sessionv != "DraAlma")
-    {      
-        <script> window.location.href='@Url.Action("Userlogin", "Home")'; </script>        
+    {
+        <script> window.location.href='@Url.Action("Userlogin", "Home")'; </script>
     }
     else
-    {   
+    {
         <h2>Aplicacion Sarepta</h2>
-        <h3> Bienvenida al sistema Dra. @Html.LabelFor(model => model.FirstName) </h3>
+        <h3> Bienvenida al sistema Dra. @Html.LabelFor(model => model.UserName) </h3>
 
         <div class="container" style="width:40%; margin-top:2%">
             @using (Html.BeginForm("PatientRegister", "Patients", FormMethod.Post))
@@ -24,6 +24,16 @@
             @using (Html.BeginForm("SareptaProcesses", "Processes", FormMethod.Post))
             {
                 <input type="submit" value="Registrar Un Proceso Nuevo" class="btn-register" style="background-color:#B45F04; font-size:15px;
+                             text-align:center; width: 250px; height:50px; padding:10px  20px 10px 20px; margin-top: 12px;
+                             border-radius: 4px; color: white" />
+                @Html.ValidationSummary()
+            }
+        </div>
+
+        <div class="container" style="width:40%; margin-top:2%">
+            @using (Html.BeginForm("PaymentPatientID", "Payments", FormMethod.Post))
+            {
+                <input type="submit" value="Registrar Un Pago Nuevo" class="btn-register" style="background-color:#B45F04; font-size:15px;
                              text-align:center; width: 250px; height:50px; padding:10px  20px 10px 20px; margin-top: 12px;
                              border-radius: 4px; color: white" />
                 @Html.ValidationSummary()

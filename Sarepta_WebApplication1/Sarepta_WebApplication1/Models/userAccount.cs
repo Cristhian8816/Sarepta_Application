@@ -32,6 +32,5 @@ namespace Sarepta_WebApplication1.Models
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
 
-
     }
 }

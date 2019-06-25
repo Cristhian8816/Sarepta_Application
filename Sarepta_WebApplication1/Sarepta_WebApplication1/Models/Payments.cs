@@ -14,4 +14,11 @@ namespace Sarepta_WebApplication1.Models
         public DateTime PayDate { get; set; }
         public byte Finished { get; set; }
     }
+
+    public enum Paytype
+    {
+        Cash,
+        Credit_Card,
+        Debit_Card
+    }
 }
