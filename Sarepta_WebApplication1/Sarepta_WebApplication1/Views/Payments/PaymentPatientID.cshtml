@@ -10,7 +10,7 @@
         <h1>Bienvenida Doctora Alma Lizcano</h1><br />       
 
         <div class="container" style="width:40%; margin-top:2%">
-            @using (Html.BeginForm("idPatient", "Payments", FormMethod.Post))
+            @using (Html.BeginForm("idPatient", "Payments", new {p = "hola" }, FormMethod.Post))
             {
                 @Html.Label("Digite Numero de Documento del paciente al que se le va a asignar el pago: ")
                 @Html.TextBoxFor(model => model.patient.cedula, new { @class = "form-control", @placeholder = "Documento de Identidad", autocomplete = "off" })<br />

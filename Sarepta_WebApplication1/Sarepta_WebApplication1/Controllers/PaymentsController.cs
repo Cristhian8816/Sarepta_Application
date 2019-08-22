@@ -46,10 +46,10 @@ namespace Sarepta_WebApplication1.Controllers
             }
         }
 
-        public IActionResult idPatient(Patient_Payment model)
+        public IActionResult idPatient(Patient_Payment model, string p)
         {
             using (UsersContext db = new UsersContext())
-            {               
+            {             
                 List<Treatments> treatmentsName = new List<Treatments>();
                 var identification = db.Patients.Where(c => c.cedula == model.patient.cedula).FirstOrDefault();               
                 if (identification != null)

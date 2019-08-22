@@ -87,8 +87,9 @@ namespace Sarepta_WebApplication1.Controllers
             {                
                 userAccount usr = db.userAccount.Where(u => u.UserName == user.UserName && u.Password == user.Password).FirstOrDefault();
                 if (usr != null)
-                {                   
-                    ViewBag.Sessionv = ((System.Security.Claims.ClaimsIdentity)((Microsoft.AspNetCore.Http.DefaultHttpContext)HttpContext).User.Identity).Name;
+                {
+                    //ViewBag.Sessionv = ((System.Security.Claims.ClaimsIdentity)((Microsoft.AspNetCore.Http.DefaultHttpContext)HttpContext).User.Identity).Name;
+                    ViewBag.Sessionv = "DraAlma";
                     return View("MainSareptaSystem");                                      
                 }
                 else

@@ -26,8 +26,8 @@ VALUES (133, 60, 1, 0, NULL, 140000, 100000, 0, 600000, 0, '2019-05-16'),
 INSERT INTO "payments"
        VALUES (145,136,0,'cash','should',0,'2019-05-23',0);
 
-DELETE FROM "processes"
-       WHERE process_id between 4 and 7;
+DELETE FROM "patients"
+       WHERE patient_id between 4 and 5;
 
 DELETE FROM UserAccounts
        WHERE UserID = 3;
@@ -36,6 +36,10 @@ DELETE FROM UserAccounts
 UPDATE treatments
 SET name = 'Corona_MP'
 WHERE treatment_id = 1; 
+
+UPDATE patients
+SET cedula = '12345678'
+WHERE patient_id = 1; 
 
 
 --Querys Sarepta Modelos de negocio
