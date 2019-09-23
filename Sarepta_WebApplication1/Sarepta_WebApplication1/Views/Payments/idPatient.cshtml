@@ -1,12 +1,6 @@
 ﻿@model IEnumerable<Sarepta_WebApplication1.Models.Treatments>
   
 <h1>Bienvenida Doctora Alma Lizcano</h1><br />
-<script>
-    var checkBoxes = $('.toggle-column');
-    $('.toggle-column').click(function () {
-        var index = checkBoxes.index($(this));        
-    });
-</script>
 
 <div class="container" style="width:40%; margin-top:2%">
     @using (Html.BeginForm("payment", "Payments", FormMethod.Post))
@@ -15,10 +9,13 @@
         @Html.Label("Seleccione el procedimiento al que le va a asignar el pago") <br />
 
         <div>
+            @* table*@ 
+            @*th*@
             @foreach (var item in Model)
             {
+                //td
                 <label style="margin-left: 30px;">
-                    <input type="checkbox" class="toggle-column" />
+                    <input type="checkbox" id="@item.TreatmentId" value="@item.Name" class="toggle-columnn" />
                     <span>@item.Name</span>
                 </label> <br />
             }
@@ -28,6 +25,23 @@
             text-align:center; width: 250px; height:50px; padding:10px  20px 10px 20px; margin-top: 12px;
             border-radius: 4px; color: white" />
     }
-</div>    
+</div> 
+
+<script src= "https://code.jquery.com/jquery-3.3.1.min.js"> </script>
+
+<script>
+    var checkBoxes = $('.toggle-columnn');
+    checkBoxes.click(function () {
+        debugger; 
+        var x = checkBoxes; 
+        //var index = checkBoxes.index($(this));
+    });
+
+    checkBoxes.change(function () {
+        debugger;
+        var x = checkBoxes;
+        //var index = checkBoxes.index($(this));
+    });
+</script>   
 
 

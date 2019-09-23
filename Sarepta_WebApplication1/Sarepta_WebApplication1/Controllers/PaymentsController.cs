@@ -33,12 +33,12 @@ namespace Sarepta_WebApplication1.Controllers
             return View(patient_payment);
         }
 
-        public IActionResult payment(Patient_Payment model, string checkBoxes)
+        public IActionResult payment(Patient_Payment model, string index)
         {
             using (UsersContext db = new UsersContext())
             {
                 Patient_Payment patient_Payment = new Patient_Payment();
-                patient_Payment.treatment.Name = checkBoxes;
+                patient_Payment.treatment.Name = index;
                 patient_Payment.process.ProcessId = model.process.ProcessId;
                 
 

@@ -1,13 +1,11 @@
-﻿using System;
-using System.Web;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Sarepta_WebApplication1.Models;
-using Microsoft.AspNetCore.Session;
 using Microsoft.AspNetCore.Http;
+using System.IdentityModel.Tokens.Jwt;
+using System;
 
 namespace Sarepta_WebApplication1.Controllers
 {    
@@ -74,23 +72,41 @@ namespace Sarepta_WebApplication1.Controllers
             return View();
         }
 
-        [Authorize]
         public IActionResult MainSareptaSystem()
         {
-            return View(ViewBag.sessionv);
+            return View(ViewBag.Message);
         }
-
-        [HttpPost]
-        public IActionResult Login(userAccount user)
+        
+        public IActionResult Login(userAccount user, string token)
         {
             using (UsersContext db = new UsersContext())
             {                
                 userAccount usr = db.userAccount.Where(u => u.UserName == user.UserName && u.Password == user.Password).FirstOrDefault();
                 if (usr != null)
-                {
-                    //ViewBag.Sessionv = ((System.Security.Claims.ClaimsIdentity)((Microsoft.AspNetCore.Http.DefaultHttpContext)HttpContext).User.Identity).Name;
-                    ViewBag.Sessionv = "DraAlma";
-                    return View("MainSareptaSystem");                                      
+                {   
+                    //Here we desencrypt token
+                    var handler = new JwtSecurityTokenHandler();
+                    var TokenJSON = handler.ReadToken(token);
+                    string TokenString = TokenJSON.ToString();
+
+                    //Here stract password 
+                    int passwordStart = TokenString.IndexOf("id") + 5;
+                    int passwordEnd = (TokenString.Length-2) - (passwordStart);
+                    string passwordToken = TokenString.Substring(passwordStart, passwordEnd);
+
+                    string date = DateTime.Now.ToString("dddMMMddyyyy");
+                    string passwordAuth = usr.UserName + date;
+
+                    if (passwordToken == passwordAuth)
+                    {
+                        ViewBag.Message = usr.UserName;
+                        return View("MainSareptaSystem");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("UserName", "Autenticacion Invalida");
+                        return View("UserLogin");
+                    }                                                          
                 }
                 else
                 {

@@ -1,26 +1,19 @@
 ﻿@model Sarepta_WebApplication1.Models.Patient_Payment
 
-@{
-    if (ViewBag.Sessionv == "DraAlma")
-    {
-        <script> window.location.href='@Url.Action("Userlogin", "Home")'; </script>
-    }
-    else
-    {
-        <h1>Bienvenida Doctora Alma Lizcano</h1><br />       
+@{   
+    <h1>Bienvenida Doctora Alma Lizcano</h1><br />       
 
-        <div class="container" style="width:40%; margin-top:2%">
-            @using (Html.BeginForm("idPatient", "Payments", new {p = "hola" }, FormMethod.Post))
-            {
-                @Html.Label("Digite Numero de Documento del paciente al que se le va a asignar el pago: ")
-                @Html.TextBoxFor(model => model.patient.cedula, new { @class = "form-control", @placeholder = "Documento de Identidad", autocomplete = "off" })<br />
+    <div class="container" style="width:40%; margin-top:2%">
+        @using (Html.BeginForm("idPatient", "Payments", new {p = "hola" }, FormMethod.Post))
+        {
+            @Html.Label("Digite Numero de Documento del paciente al que se le va a asignar el pago: ")
+            @Html.TextBoxFor(model => model.patient.cedula, new { @class = "form-control", @placeholder = "Documento de Identidad", autocomplete = "off" })<br />
                
-                <input type="submit" value="Ingreso" class="btn-register" style="background-color:#B45F04; font-size:15px;
-                         text-align:center; width: 250px; height:50px; padding:10px  20px 10px 20px; margin-top: 12px;
-                         border-radius: 4px; color: white" />
+            <input type="submit" value="Ingreso" class="btn-register" style="background-color:#B45F04; font-size:15px;
+                        text-align:center; width: 250px; height:50px; padding:10px  20px 10px 20px; margin-top: 12px;
+                        border-radius: 4px; color: white" />
                          
-                @Html.ValidationMessageFor(model => model.patient.cedula);
-            }
-        </div>
-    }
+            @Html.ValidationMessageFor(model => model.patient.cedula);
+        }
+    </div>
 }

@@ -30,7 +30,7 @@ namespace Sarepta_WebApplication1.Models
 
         [Compare("Password", ErrorMessage = "Las claves no coinciden")]
         [DataType(DataType.Password)]
-        public string ConfirmPassword { get; set; }
+        public string ConfirmPassword { get; set; }      
 
     }
 }

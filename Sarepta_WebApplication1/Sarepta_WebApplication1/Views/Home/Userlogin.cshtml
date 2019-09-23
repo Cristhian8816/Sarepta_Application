@@ -4,8 +4,11 @@
 <p>Ingrese los datos de usuario y contraseña para hacer login al sistema</p>
 
 <div class="container" style="width:40%; margin-top:2%">
+
     @using (Html.BeginForm("Login", "Home", FormMethod.Post))
     {
+        <input type="hidden" name="token" id="token" value="" />
+
         @Html.Label("Usuario: ")
         @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @placeholder = "Nombre de Usuario", autocomplete = "off" })<br />
         @Html.Label("Password: ")
@@ -18,4 +21,9 @@
     }
 
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/hmac-sha256.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/enc-base64-min.js"></script>
+<script src="~/js/token.js"></script>
+
 
