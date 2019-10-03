@@ -26,7 +26,7 @@ namespace Sarepta_WebApplication1.Models
         {
             if (!optionsBuilder.IsConfigured)
             {                
-                optionsBuilder.UseSqlServer("Data Source=crisdev;Initial Catalog=sarepta_consultory;Persist Security Info=True;User ID=desenv;Password=desenv");
+                optionsBuilder.UseSqlServer("Data Source=MVMOAN175A\\SQLEXPRESS;Initial Catalog=Sarepta_Consultory;User ID=sa;Password=sa");
             }
         }
 

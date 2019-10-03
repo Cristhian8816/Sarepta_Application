@@ -9,8 +9,7 @@ using Sarepta_WebApplication1.Models;
 using Microsoft.AspNetCore.Http;
 
 namespace Sarepta_WebApplication1.Controllers
-{
-    [Authorize]
+{   
     public class PatientsController : Controller
     {       
 

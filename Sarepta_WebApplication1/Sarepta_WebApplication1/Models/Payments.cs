@@ -12,7 +12,7 @@ namespace Sarepta_WebApplication1.Models
         public string Status { get; set; }
         public int Discount { get; set; }
         public DateTime PayDate { get; set; }
-        public byte Finished { get; set; }
+        public int Finished { get; set; }
     }
 
     public enum Paytype

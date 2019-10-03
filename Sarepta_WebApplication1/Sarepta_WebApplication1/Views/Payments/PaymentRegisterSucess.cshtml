@@ -1,0 +1,16 @@
+﻿@model Sarepta_WebApplication1.Models.Patient_Payment
+
+<h2>
+    El pago de @Html.DisplayFor(modelItem => modelItem.payment.Pay) ha sido abonado al tratamiento @Html.DisplayFor(modelItem => modelItem.treatment.Name) del paciente
+    @Html.DisplayFor(modelItem => modelItem.patient.Name) con èxito
+</h2>
+
+<div class="container" style="width:40%; margin-top:2%">
+    @using (Html.BeginForm("MainSareptaSystem", "Home", FormMethod.Post))
+    {
+        <input type="submit" value="Volver Menu Principal" class="btn-register" style="background-color:#B45F04; font-size:15px;
+                         text-align:center; width: 350px; height:50px; padding:10px  20px 10px 20px; margin-top: 12px;
+                         border-radius: 4px; color: white" />
+        @Html.ValidationSummary()
+    }
+</div>

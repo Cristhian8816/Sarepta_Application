@@ -33,24 +33,23 @@ namespace Sarepta_WebApplication1.Controllers
             return View(patient_payment);
         }
 
-        public IActionResult payment(Patient_Payment model, string index)
+        public IActionResult payment(int[] TreatmentId)
         {
             using (UsersContext db = new UsersContext())
             {
-                Patient_Payment patient_Payment = new Patient_Payment();
-                patient_Payment.treatment.Name = index;
-                patient_Payment.process.ProcessId = model.process.ProcessId;
-                
-
-                return View(patient_Payment);
+                Patient_Payment payment_processes = new Patient_Payment();
+                payment_processes.ID = TreatmentId[0]; 
+                return View(payment_processes);
             }
         }
 
         public IActionResult idPatient(Patient_Payment model, string p)
         {
             using (UsersContext db = new UsersContext())
-            {             
-                List<Treatments> treatmentsName = new List<Treatments>();
+            {
+                Treatment_Process treatmentProcess = new Treatment_Process(); 
+                List<int> processesIDs = new List<int>();                
+                List<string> treatmentsName = new List<string>();
                 var identification = db.Patients.Where(c => c.cedula == model.patient.cedula).FirstOrDefault();               
                 if (identification != null)
                 {
@@ -60,10 +59,14 @@ namespace Sarepta_WebApplication1.Controllers
                     foreach (var processIt in ProcessesList)
                     {
                         var treatmentIt = db.Treatments.Where(x => x.TreatmentId == processIt.TreatmentsId).FirstOrDefault();                     
-                        treatmentsName.Add(treatmentIt);
-                    }                
+                        treatmentsName.Add(treatmentIt.Name);
+                        processesIDs.Add(processIt.ProcessId);
+                    }
 
-                    return View(treatmentsName);
+                    treatmentProcess.IDs = processesIDs;
+                    treatmentProcess.Name = treatmentsName;
+
+                    return View(treatmentProcess);
                 }
                 else
                 {
@@ -72,27 +75,66 @@ namespace Sarepta_WebApplication1.Controllers
                 }
 
             }
-        }
+        }       
 
-        public IActionResult paymentProcess(Patient_Payment model)
+        public IActionResult paymentProcess(Patient_Payment model, int pro_ID)
         {
             using (UsersContext db = new UsersContext())
-            {              
-                var amount_Payments = db.Payments.Count();
-                amount_Payments++;
+            {
+                var treatmentCost = 0;
+                var processIt = db.Processes.Where(x => x.ProcessId == pro_ID).FirstOrDefault();
+                if(processIt != null)
+                {
+                   var  treatmentIt = db.Treatments.Where(x => x.TreatmentId == processIt.TreatmentsId).FirstOrDefault();
+                   treatmentCost = treatmentIt.Price;
+                }              
+                
+                var treatmentPayList = db.Payments.Where(x => x.ProcessId == pro_ID).ToList();
+                int sumPays = 0;
+                List<int> ids = new List<int>();
+                foreach (var treatPayList in treatmentPayList)
+                {
+                    sumPays += treatPayList.Pay;
+                    ids.Add(treatPayList.PaymentId); 
+                }
 
+                var statusTreatment = treatmentCost - sumPays;
                 Payments payment = new Payments();
-                payment.PaymentId = amount_Payments;
-                payment.ProcessId = model.process.ProcessId;
-                payment.Pay = model.payment.Pay;
-                payment.Status = model.payment.Status;
-                payment.Discount = model.payment.Discount;
-                payment.PayDate = model.payment.PayDate;
 
-                db.Payments.Add(payment);
-                db.SaveChanges();
-            }
-                return View();
+                if (statusTreatment > 0)
+                {
+                    var amount_Payments = db.Payments.Count();
+                    amount_Payments++;
+
+                    
+                    payment.PaymentId = amount_Payments;
+                    payment.ProcessId = pro_ID;
+                    payment.Pay = model.payment.Pay;
+                    payment.PayType = model.payment.PayType;
+                    payment.Discount = model.payment.Discount;
+                    payment.PayDate = model.payment.PayDate;
+                    payment.Status = "should";
+                    payment.Finished = 0;
+
+                    db.Payments.Add(payment);
+                    db.SaveChanges();
+                    return View("PaymentRegisterSucess");
+                }
+                else
+                {
+                    foreach (var id in ids)
+                    {
+                        payment.PaymentId = id;
+                        payment.Status = "payment";
+                        payment.Finished = 1;
+
+                        db.Payments.Add(payment);
+                        db.SaveChanges();
+                        ModelState.AddModelError("Status", "El procedimiento esta pagado");
+                    }
+                    return View("payment");
+                }                          
+            }               
         }
     }
 }

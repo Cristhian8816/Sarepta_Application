@@ -93,11 +93,12 @@ namespace Sarepta_WebApplication1.Controllers
                     int passwordStart = TokenString.IndexOf("id") + 5;
                     int passwordEnd = (TokenString.Length-2) - (passwordStart);
                     string passwordToken = TokenString.Substring(passwordStart, passwordEnd);
+                    string passwordTokenfinal = passwordToken.Remove(7, 6);
 
-                    string date = DateTime.Now.ToString("dddMMMddyyyy");
+                    string date = DateTime.Now.ToString("ddyyyy");
                     string passwordAuth = usr.UserName + date;
 
-                    if (passwordToken == passwordAuth)
+                    if (passwordTokenfinal == passwordAuth)
                     {
                         ViewBag.Message = usr.UserName;
                         return View("MainSareptaSystem");

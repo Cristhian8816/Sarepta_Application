@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Sarepta_WebApplication1.Models.Treatments>
+﻿@model Sarepta_WebApplication1.Models.Treatment_Process
   
 <h1>Bienvenida Doctora Alma Lizcano</h1><br />
 
@@ -9,14 +9,13 @@
         @Html.Label("Seleccione el procedimiento al que le va a asignar el pago") <br />
 
         <div>
-            @* table*@ 
-            @*th*@
-            @foreach (var item in Model)
+            @{int i = 0;}
+            @foreach (var item in Model.IDs)
             {
-                //td
-                <label style="margin-left: 30px;">
-                    <input type="checkbox" id="@item.TreatmentId" value="@item.Name" class="toggle-columnn" />
-                    <span>@item.Name</span>
+            <label style="margin-left: 30px;">
+                <input type="checkbox" name="TreatmentId" value="@item" class="toggle-columnn" />
+                <span>@Model.Name[i] </span>
+                @{i++;}
                 </label> <br />
             }
         </div>
@@ -31,17 +30,10 @@
 
 <script>
     var checkBoxes = $('.toggle-columnn');
-    checkBoxes.click(function () {
-        debugger; 
+    checkBoxes.click(function () {        
         var x = checkBoxes; 
-        //var index = checkBoxes.index($(this));
-    });
-
-    checkBoxes.change(function () {
-        debugger;
-        var x = checkBoxes;
-        //var index = checkBoxes.index($(this));
-    });
+        var index = checkBoxes.index($(this));       
+    });  
 </script>   
 
 
