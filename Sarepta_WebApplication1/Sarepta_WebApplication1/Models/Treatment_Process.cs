@@ -9,5 +9,6 @@ namespace Sarepta_WebApplication1.Models
     {
         public List<int> IDs { get; set; }
         public List<string> Name { get; set; }
+        public List<int> paymentsProcess { get; set; }        
     }
 }

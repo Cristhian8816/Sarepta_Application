@@ -1,10 +1,7 @@
 ﻿@model Sarepta_WebApplication1.Models.Patients
 
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
-<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="https://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
-
-@{ 
+@{
     <h2>Registro de un Nuevo Paciente</h2><br />
     <p>
         A continuacion encontrarà el formulario para el registro de un nuveo paciente con sus respectivos datos, al terminar
@@ -40,19 +37,9 @@
             @Html.ValidationSummary()
         }
     </div>
-    
-}
 
-    <script>
-        jQuery(document).ready(function ($) {
-            $(function () {
-                $("#datepicker").datepicker({
-                    changeMonth: true,
-                    changeYear: true,
-                    yearRange: '1920:2020',
-                    dateFormat: 'yy-mm-dd'
-                });
-            });
-        });
-    </script>
+}
+<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="https://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+<script src="~/js/datepicker.js"></script>
 

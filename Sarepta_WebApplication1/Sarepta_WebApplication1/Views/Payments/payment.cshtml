@@ -1,15 +1,12 @@
 ﻿@model Sarepta_WebApplication1.Models.Patient_Payment
 
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
-<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="https://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
 
 <h1>Bienvenida Doctora Alma Lizcano</h1>
 <h2>Registro de un Nuevo Pago a un Proceso Odontologico</h2><br />
 <p>
 
 </p><br />
-
 @{
     <div class="container" style="width:40%; margin-top:2%">
         @using (Html.BeginForm("paymentProcess", "Payments", new { pro_ID = Model.ID }, FormMethod.Post))
@@ -21,7 +18,7 @@
             @Html.Label("Descuento")
             @Html.TextBoxFor(model => model.payment.Discount, new { @class = "form-control", @placeholder = "Descuento", autocomplete = "off" })<br />
             @Html.Label("Fecha de Registro Pago: ")
-            @Html.TextBoxFor(model => model.payment.PayDate, new { @class = "form-control", @placeholder = "Fecha Pago", @id = "datepicker", autocomplete = "off" })<br />           
+            @Html.TextBoxFor(model => model.payment.PayDate, new { @class = "form-control", @placeholder = "Fecha Pago", @id = "datepicker", autocomplete = "off" })<br />
 
 
             <input type="submit" value="Registrar Procedimiento" class="btn-register" style="background-color:#B45F04; font-size:15px;
@@ -33,16 +30,8 @@
         }
     </div>
 }
-    <script>
-        jQuery(document).ready(function ($) {
-            $(function () {
-                $("#datepicker").datepicker({
-                    changeMonth: true,
-                    changeYear: true,
-                    yearRange: '2019:2020',
-                    dateFormat: 'yy-mm-dd'
-                });
-            });
-        });
-    </script>
+
+<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="https://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+<script src="~/js/datepicker.js"></script>
 
