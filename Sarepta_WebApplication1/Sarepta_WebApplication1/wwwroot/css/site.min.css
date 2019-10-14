@@ -1,14 +1,12 @@
-body
-{
-    padding-top:50px;
-    padding-bottom:20px
-
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    font-family: 'Frank Ruhl Libre', serif
 }
 
-.body-content
-{
-   
-
+.body-content {
+    font-family: 'Kreon', serif;
+    font-size: 20px;
 }
 
 .carousel-caption p
@@ -28,17 +26,6 @@ body
     margin:15px
 
 }
-@media screen and (max-width:767px)
-{
-    .carousel-caption
-    {
-        display:none
-
-    }
-
-}
-
-
 
 table {
     width: 100%;
@@ -108,4 +95,61 @@ container body-content .table-add {
 {
     color: #0b0;
 }
+}
+.container {
+    width: 50%;
+    margin-top: 2%;
+}
+
+.top_menu ul
+ {
+     list-style:none;
+     float:left;
+     border: 1px dashed;
+     padding: 2%;
+     width:95%;
+    
+}
+
+
+.top_menu ul li
+ {
+     float:left;
+     margin-right:20px;
+     margin-bottom:10px;
+     background: #ff812d;
+     padding:5px;
+     border-radius: 15%;
+    
+}
+
+
+.top_menu ul li a
+ {
+     color: #FFFFFF;
+     text-decoration:none;
+    
+}
+
+
+.top_menu ul li a:hover
+ {
+     color: blue;
+    
+}
+
+
+
+
+@media screen and (max-width:767px) {
+    .carousel-caption {
+        display: none
+    }
+
+    .container {
+        width:80%;
+        margin-top:2%;
+    }
+
+
 }

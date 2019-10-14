@@ -1,59 +1,52 @@
-﻿@model Sarepta_WebApplication1.Models.userAccount
+﻿<link href="~/css/site.min.css" rel="stylesheet" />
 
-@{  
+
+@model Sarepta_WebApplication1.Models.userAccount
+
+
+@{
     <h2>Aplicacion Sarepta</h2>
-    <h3> Bienvenida al sistema Dra. @Html.LabelFor(model => model.UserName) </h3>
+    <h3> Bienvenida al sistema Dra. @ViewBag.Message </h3><br /><br />
 
-    <div class="container" style="width:40%; margin-top:2%">
+    <h5> En el siguiente menu puede Registrar la informacion que el boton le indica</h5>
+
+    <div class="container">
         @using (Html.BeginForm("PatientRegister", "Patients", FormMethod.Post))
         {
             <input type="submit" value="Registrar un Paciente Nuevo" class="btn-register" style="background-color:#B45F04; font-size:15px;
                             text-align:center; width: 250px; height:50px; padding:10px  20px 10px 20px; margin-top: 12px;
                             border-radius: 4px; color: white" />
-            @Html.ValidationSummary()
         }
     </div>
 
-    <div class="container" style="width:40%; margin-top:2%">
+    <div class="container">
         @using (Html.BeginForm("SareptaProcesses", "Processes", FormMethod.Post))
         {
             <input type="submit" value="Registrar Un Proceso Nuevo" class="btn-register" style="background-color:#B45F04; font-size:15px;
                             text-align:center; width: 250px; height:50px; padding:10px  20px 10px 20px; margin-top: 12px;
                             border-radius: 4px; color: white" />
-            @Html.ValidationSummary()
         }
     </div>
 
-    <div class="container" style="width:40%; margin-top:2%">
+    <div class="container">
         @using (Html.BeginForm("PaymentPatientID", "Payments", FormMethod.Post))
         {
             <input type="submit" value="Registrar Un Pago Nuevo" class="btn-register" style="background-color:#B45F04; font-size:15px;
                             text-align:center; width: 250px; height:50px; padding:10px  20px 10px 20px; margin-top: 12px;
                             border-radius: 4px; color: white" />
-            @Html.ValidationSummary()
         }
     </div>
 
-    <h4>Dando Click en el boton "Pacientes/procesos" encontrarà el listado de procesos realizados para cada paciente registrado en el sistema</h4>
-    <div class="container" style="width:40%; margin-top:2%">
+    <div class="container">
         @using (Html.BeginForm("PatientProcesses", "Home", FormMethod.Post))
         {
             <input type="submit" value="Pacientes/Procesos" class="btn-register" style="background-color:#B45F04; font-size:15px;
                             text-align:center; width: 250px; height:50px; padding:10px  20px 10px 20px; margin-top: 12px;
                             border-radius: 4px; color: white" />
-            @Html.ValidationSummary()
         }
     </div>
 
-    <div class="container" style="width:40%; margin-top:2%">
-        @using (Html.BeginForm("Logout", "Home", FormMethod.Post))
-        {
-            <input type="submit" value="Logout" class="btn-register" style="background-color:#B45F04; font-size:15px;
-                            text-align:center; width: 250px; height:50px; padding:10px  20px 10px 20px; margin-top: 12px;
-                            border-radius: 4px; color: white" />
-            @Html.ValidationSummary()
-        }
-    </div>
-    
 }
+
+
 

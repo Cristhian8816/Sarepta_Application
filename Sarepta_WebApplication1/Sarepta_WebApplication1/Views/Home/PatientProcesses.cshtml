@@ -1,10 +1,13 @@
-﻿@model IEnumerable<Sarepta_WebApplication1.Models.Patient_Treatment>
+﻿<link rel="stylesheet" href="~/css/site.min.css" />
+<link href="~/css/creative.min.css" rel="stylesheet">
+
+@model IEnumerable<Sarepta_WebApplication1.Models.Patient_Treatment>
 
 
 <h2>Paciente y sus Procesos</h2>
 
 <div>
-    <table>
+    <table id="tbltreatments">
         <tbody>
             <tr>
                 <th>
@@ -36,18 +39,18 @@
                         @Html.DisplayFor(modelItem => item.treatment_Name)
                     </td>
                 </tr>
-                }
-        </tbody>
-    </table>
- </div>
+            }
+            </tbody>
+        </table>
+    </div>
 
-<div class="container" style="width:40%; margin-top:2%">
-    @using (Html.BeginForm("MainSareptaSystem", "Home", FormMethod.Post))
-    {
-        <input type="submit" value="Volver al Menu Principal" class="btn-register" style="background-color:#B45F04; font-size:15px;
+    <div class="container" style="width:40%; margin-top:2%">
+        @using (Html.BeginForm("MainSareptaSystem", "Home", FormMethod.Post))
+        {
+            <input type="submit" value="Volver al Menu Principal" class="btn-register" style="background-color:#B45F04; font-size:15px;
                          text-align:center; width: 250px; height:50px; padding:10px  20px 10px 20px; margin-top: 12px;
                          border-radius: 4px; color: white" />
-        @Html.ValidationSummary()
-    }
-</div>
+            @Html.ValidationSummary()
+        }
+    </div>
 

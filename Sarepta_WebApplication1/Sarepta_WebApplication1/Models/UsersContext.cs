@@ -25,8 +25,9 @@ namespace Sarepta_WebApplication1.Models
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
-            {                
-                optionsBuilder.UseSqlServer("Data Source=MVMOAN175A\\SQLEXPRESS;Initial Catalog=Sarepta_Consultory;User ID=sa;Password=sa");
+            {
+                //optionsBuilder.UseSqlServer("Data Source=MVMOAN175A\\SQLEXPRESS;Initial Catalog=Sarepta_Consultory;User ID=sa;Password=sa");
+                optionsBuilder.UseSqlServer("Data Source = SQL5045.site4now.net; Initial Catalog = DB_A4E9E2_SareptaConsultory; User Id = DB_A4E9E2_SareptaConsultory_admin; Password = 40A39j21c14a11l");                
             }
         }
 
@@ -154,6 +155,8 @@ namespace Sarepta_WebApplication1.Models
                 entity.Property(e => e.Transport).HasColumnName("transport");
 
                 entity.Property(e => e.TreatmentsId).HasColumnName("treatments_id");
+
+                entity.Property(e => e.real_Cost).HasColumnName("real_Cost");
             });
 
             modelBuilder.Entity<Treatments>(entity =>

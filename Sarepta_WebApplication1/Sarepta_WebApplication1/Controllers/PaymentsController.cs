@@ -19,39 +19,15 @@ namespace Sarepta_WebApplication1.Controllers
             return View();
         }
 
-        public IActionResult SareptaPayments()
-        {
-            Patients patient = new Patients();            
-            Processes process = new Processes();
-            Payments payment = new Payments();
-
-            Patient_Payment patient_payment = new Patient_Payment();
-
-            UsersContext db = new UsersContext();
-
-            ViewBag.Sessionv = ((System.Security.Claims.ClaimsIdentity)((Microsoft.AspNetCore.Http.DefaultHttpContext)HttpContext).User.Identity).Name;
-            return View(patient_payment);
-        }
-
-        public IActionResult payment(int[] TreatmentId)
-        {
-            using (UsersContext db = new UsersContext())
-            {
-                Patient_Payment payment_processes = new Patient_Payment();
-                payment_processes.ID = TreatmentId[0]; 
-                return View(payment_processes);
-            }
-        }
-
         public IActionResult idPatient(Patient_Payment model, string p)
         {
             using (UsersContext db = new UsersContext())
             {
-                Treatment_Process treatmentProcess = new Treatment_Process(); 
+                Treatment_Process treatmentProcess = new Treatment_Process();
                 List<int> processesIDs = new List<int>();
                 List<int> paymentsProcess = new List<int>();
                 List<string> treatmentsName = new List<string>();
-                var identification = db.Patients.Where(c => c.cedula == model.patient.cedula).FirstOrDefault();               
+                var identification = db.Patients.Where(c => c.cedula == model.patient.cedula).FirstOrDefault();
                 if (identification != null)
                 {
                     ViewBag.messagge = identification.Name;
@@ -59,7 +35,7 @@ namespace Sarepta_WebApplication1.Controllers
                     var i = 0;
                     foreach (var processIt in ProcessesList)
                     {
-                        var treatmentIt = db.Treatments.Where(x => x.TreatmentId == processIt.TreatmentsId).FirstOrDefault();                     
+                        var treatmentIt = db.Treatments.Where(x => x.TreatmentId == processIt.TreatmentsId).FirstOrDefault();
                         treatmentsName.Add(treatmentIt.Name);
                         processesIDs.Add(processIt.ProcessId);
 
@@ -70,10 +46,10 @@ namespace Sarepta_WebApplication1.Controllers
                         {
                             payAmount += paymentIt.Pay;
                         }
-                        shouldAmount = treatmentIt.Price - payAmount;
+                        shouldAmount = processIt.real_Cost - payAmount;
                         paymentsProcess.Add(shouldAmount);
                         i++;
-                    }                    
+                    }
 
                     treatmentProcess.IDs = processesIDs;
                     treatmentProcess.Name = treatmentsName;
@@ -86,93 +62,106 @@ namespace Sarepta_WebApplication1.Controllers
                     ModelState.AddModelError("cedula", "Paciente no encontrado en la base de datos");
                     return View("PaymentPatientID");
                 }
-
             }
-        }       
+        }    
+
+        public IActionResult payment(int[] TreatmentId)
+        {
+            using (UsersContext db = new UsersContext())
+            {
+                Patient_Payment payment_processes = new Patient_Payment();
+                payment_processes.ID = TreatmentId[0]; 
+                return View(payment_processes);
+            }
+        }        
 
         public IActionResult paymentProcess(Patient_Payment model, int pro_ID)
         {
             using (UsersContext db = new UsersContext())
-            {
-                var treatmentCost = 0;
+            {                
                 var processIt = db.Processes.Where(x => x.ProcessId == pro_ID).FirstOrDefault();
-                if(processIt != null)
-                {
-                   var  treatmentIt = db.Treatments.Where(x => x.TreatmentId == processIt.TreatmentsId).FirstOrDefault();
-                   treatmentCost = treatmentIt.Price;
-                }              
+               
+                var  treatmentIt = db.Treatments.Where(x => x.TreatmentId == processIt.TreatmentsId).FirstOrDefault();                                            
                 
-                var treatmentPayList = db.Payments.Where(x => x.ProcessId == pro_ID).ToList();
-                int sumPays = 0;
-                
+                var treatmentPayList = db.Payments.Where(x => x.ProcessId == pro_ID).ToList();                             
+
+                int sumPays = 0;                
                 foreach (var treatPayList in treatmentPayList)
                 {
                     sumPays += treatPayList.Pay;                    
                 }
 
-                var statusTreatment = treatmentCost - sumPays;
+                var statusTreatment = processIt.real_Cost - sumPays;
                 Payments payment = new Payments();
 
-                if (statusTreatment > 0)
+                
+                if(statusTreatment - model.payment.Pay > 0)
                 {
-                    if(statusTreatment - model.payment.Pay > 0)
+                    var amount_Payments = db.Payments.Count();
+                    amount_Payments++;
+
+                    payment.PaymentId = amount_Payments;
+                    payment.ProcessId = pro_ID;
+                    payment.Pay = model.payment.Pay;
+                    payment.PayType = model.payment.PayType;
+                    if (treatmentPayList.Count() == 0)
                     {
-                        var amount_Payments = db.Payments.Count();
-                        amount_Payments++;
-
-                        payment.PaymentId = amount_Payments;
-                        payment.ProcessId = pro_ID;
-                        payment.Pay = model.payment.Pay;
-                        payment.PayType = model.payment.PayType;
-                        payment.Discount = model.payment.Discount;
-                        payment.PayDate = model.payment.PayDate;
-                        payment.Status = "should";
-                        payment.Finished = 0;
-
-                        db.Payments.Add(payment);
-                        db.SaveChanges();
-                        return View("PaymentRegisterSucess");
+                        var discount = treatmentIt.Price - processIt.real_Cost;
+                        payment.Discount = discount;
                     }
                     else
                     {
-                        var amount_Payments = db.Payments.Count();
-                        amount_Payments++;
+                        payment.Discount = 0;
+                    }                    
+                    payment.PayDate = model.payment.PayDate;
+                    payment.Status = "should";
+                    payment.Finished = 0;
 
-                        payment.PaymentId = amount_Payments;
-                        payment.ProcessId = pro_ID;
-                        payment.Pay = model.payment.Pay;
-                        payment.PayType = model.payment.PayType;
-                        payment.Discount = model.payment.Discount;
-                        payment.PayDate = model.payment.PayDate;
-                        payment.Status = "payment";
-                        payment.Finished = 1;
+                    db.Payments.Add(payment);
+                    db.SaveChanges();
+                    return View("PaymentRegisterSucess");
+                }
+                else if(statusTreatment - model.payment.Pay == 0)
+                {
+                    var amount_Payments = db.Payments.Count();
+                    amount_Payments++;
 
-                        db.Payments.Add(payment);
-                        db.SaveChanges();
+                    payment.PaymentId = amount_Payments;
+                    payment.ProcessId = pro_ID;
+                    payment.Pay = model.payment.Pay;
+                    payment.PayType = model.payment.PayType;
+                    if (treatmentPayList.Count() == 0)
+                    {
+                        var discount = treatmentIt.Price - processIt.real_Cost;
+                        payment.Discount = discount;
+                    }
+                    else
+                    {
+                        payment.Discount = 0;
+                    }
+                    payment.PayDate = model.payment.PayDate;
+                    payment.Status = "payment";
+                    payment.Finished = 1;
 
-                        foreach (var treatPayList in treatmentPayList)
-                        {
-                            treatPayList.Status = "payment";
-                            treatPayList.Finished = 1;
+                    db.Payments.Add(payment);
+                    db.SaveChanges();
 
-                            db.SaveChanges();                            
-                        }
-                        ModelState.AddModelError("Status", "El procedimiento esta pagado");
-                        return View("payment");
-                    }                                      
+                    foreach (var treatPayList in treatmentPayList)
+                    {
+                        treatPayList.Status = "payment";
+                        treatPayList.Finished = 1;
+
+                        db.SaveChanges();                            
+                    }                    
+                    return View("PaymentRegisterSucess");
                 }
                 else
                 {
-                    foreach (var treatPayList in treatmentPayList)
-                    {                        
-                        treatPayList.Status = "payment";
-                        treatPayList.Finished = 1;
-                        
-                        db.SaveChanges();
-                        ModelState.AddModelError("Status", "El procedimiento esta pagado");
-                    }
-                    return View("payment");
-                }                          
+                    Patient_Payment payment_processes = new Patient_Payment();
+                    payment_processes.ID = pro_ID;                    
+                    ModelState.AddModelError("Status", "El monto que se esta pagando no puede ser mayor al saldo");
+                    return View("payment", payment_processes);                         
+                }                                         
             }               
         }
     }

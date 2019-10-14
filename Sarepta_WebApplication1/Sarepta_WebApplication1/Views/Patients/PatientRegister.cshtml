@@ -1,15 +1,17 @@
-﻿@model Sarepta_WebApplication1.Models.Patients
-
+﻿<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
+<link href="~/css/site.min.css" rel="stylesheet" />
+
+@model Sarepta_WebApplication1.Models.Patients
 @{
-    <h2>Registro de un Nuevo Paciente</h2><br />
+    <h1>Registro de un Nuevo Paciente</h1><br />
     <p>
         A continuacion encontrarà el formulario para el registro de un nuveo paciente con sus respectivos datos, al terminar
         y confirmar que los datos se encuentren bien, proceda a dar click en el boton "Registrar", esto ejecutara el proceso
         de guardado de la informacion en la base de datos.
     </p><br />
 
-    <div class="container" style="width:40%; margin-top:2%">
+    <div class="container">
         @using (Html.BeginForm("Patient", "Patients", FormMethod.Post))
         {
             @Html.Label("Numero de Documento: ")

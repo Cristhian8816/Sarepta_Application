@@ -26,18 +26,8 @@ namespace Sarepta_WebApplication1.Controllers
         }        
         
         public IActionResult PatientRegister()
-        {          
-            var patient = new Patients();
-
-            patient.Name = "Cristhian Gòmez";
-            patient.CellphoneNumber = "3204575257";
-            patient.Email = "Cristhian.julian@hotmail.com";
-            patient.Address = "calle 142 # 13-69";
-            patient.CreatedAt = DateTime.Now;
-            patient.city = "Bucaramanga";
-
-            ViewBag.Sessionv = ((System.Security.Claims.ClaimsIdentity)((Microsoft.AspNetCore.Http.DefaultHttpContext)HttpContext).User.Identity).Name;
-            return View(patient);
+        {                  
+            return View();
         }
 
         public IActionResult Patient(Patients model)

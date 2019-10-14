@@ -1,47 +1,52 @@
-﻿@model Sarepta_WebApplication1.Models.Patient_Treatment
+﻿<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
+<link href="~/css/site.min.css" rel="stylesheet" />
 
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
+@model Sarepta_WebApplication1.Models.Patient_Treatment
+
+
 @{
-    <h1>Bienvenida Doctora Alma Lizcano</h1>
-    <h2>Registro de un Nuevo Proceso Odontologico</h2><br />
+    <h1>Bienvenida Doctora Alma Lizcano</h1><br />
+    <h3>Registro de un Nuevo Proceso Odontologico</h3><br />
     <p>
 
     </p><br />
 
-    <div class="container" style="width:40%; margin-top:2%">
-        @using (Html.BeginForm("process", "Processes", FormMethod.Post))
-        {
-            @Html.Label("Digite Numero de Documento del paciente al que se le va a asignar el procedimiento: ")
-            @Html.TextBoxFor(model => model.patient.cedula, new { @class = "form-control", @placeholder = "Documento de Identidad", autocomplete = "off" })<br />
-            @Html.Label("Seleccion el tratamiento:")
-            @Html.DropDownListFor(model => model.treatment.Name, new SelectList(Enum.GetValues(typeof(Name))), new { @class = "form-control", @placeholder = "Procedimiento" })<br />
-            @Html.Label("Tratamiento a Domicilio:")
-            @Html.DropDownListFor(model => model.process.Home, new SelectList(Enum.GetValues(typeof(Home))), "Procedimiento a Domicilio", new { @class = "form-control", @placeholder = "Domicilio" })<br />
-            @Html.Label("Dientes intervenidos")
-            @Html.TextBoxFor(model => model.process.Tooth, new { @class = "form-control", @placeholder = "Dientes", autocomplete = "off" })<br />
-            <h2>Gastos (Coloque '0' si no Hubo gasto) </h2>
-            @Html.Label("Laboratorio: (Requerido)")
-            @Html.TextBoxFor(model => model.process.Laboratory, new { @class = "form-control", @placeholder = "Gastos Laboratorio", autocomplete = "off" })<br />
-            @Html.Label("Consultorio: (Requerido)")
-            @Html.TextBoxFor(model => model.process.Consultory, new { @class = "form-control", @placeholder = "Gastos Consultorio", autocomplete = "off" })<br />
-            @Html.Label("Auxiliar: (Requerido)")
-            @Html.TextBoxFor(model => model.process.Assistant, new { @class = "form-control", @placeholder = "Gastos Auxiliar", autocomplete = "off" })<br />
-            @Html.Label("Materiales: (Requerido)")
-            @Html.TextBoxFor(model => model.process.Materials, new { @class = "form-control", @placeholder = "Gastos Materiales", autocomplete = "off" })<br />
-            @Html.Label("Transporte: (Requerido)")
-            @Html.TextBoxFor(model => model.process.Transport, new { @class = "form-control", @placeholder = "Gastos Transporte", autocomplete = "off" })<br />
-            @Html.Label("Fecha de Registro Proceso: ")
-            @Html.TextBoxFor(model => model.process.Date, new { @class = "form-control", @placeholder = "Fecha Procedimiento", @id = "datepicker", autocomplete = "off" })<br />
+        <div class="container">
+            @using (Html.BeginForm("process", "Processes", FormMethod.Post))
+            {
+                @Html.Label("Digite Numero de Documento del paciente al que se le va a asignar el procedimiento: ")
+                @Html.TextBoxFor(model => model.patient.cedula, new { @class = "form-control", @placeholder = "Documento de Identidad", autocomplete = "off" })<br />
+                @Html.Label("Seleccion el tratamiento:")
+                @Html.DropDownListFor(model => model.treatment.Name, new SelectList(Enum.GetValues(typeof(Name))), new { @class = "form-control", @placeholder = "Procedimiento" })<br />
+                @Html.Label("Tratamiento a Domicilio:")
+                @Html.DropDownListFor(model => model.process.Home, new SelectList(Enum.GetValues(typeof(Home))), "Procedimiento a Domicilio", new { @class = "form-control", @placeholder = "Domicilio" })<br />
+                @Html.Label("Dientes intervenidos")
+                @Html.TextBoxFor(model => model.process.Tooth, new { @class = "form-control", @placeholder = "Dientes", autocomplete = "off" })<br />
+                @Html.Label("Costo Real: (Requerido)")
+                @Html.TextBoxFor(model => model.process.real_Cost, new { @class = "form-control", @placeholder = "Precio Real procedimiento", autocomplete = "off" })<br /><br />
+                <h4>Gastos: Coloque '0' si no hubo gastos </h4>
+                @Html.Label("Laboratorio: (Requerido)")
+                @Html.TextBoxFor(model => model.process.Laboratory, new { @class = "form-control", @placeholder = "Gastos Laboratorio", autocomplete = "off" })<br />
+                @Html.Label("Consultorio: (Requerido)")
+                @Html.TextBoxFor(model => model.process.Consultory, new { @class = "form-control", @placeholder = "Gastos Consultorio", autocomplete = "off" })<br />
+                @Html.Label("Auxiliar: (Requerido)")
+                @Html.TextBoxFor(model => model.process.Assistant, new { @class = "form-control", @placeholder = "Gastos Auxiliar", autocomplete = "off" })<br />
+                @Html.Label("Materiales: (Requerido)")
+                @Html.TextBoxFor(model => model.process.Materials, new { @class = "form-control", @placeholder = "Gastos Materiales", autocomplete = "off" })<br />
+                @Html.Label("Transporte: (Requerido)")
+                @Html.TextBoxFor(model => model.process.Transport, new { @class = "form-control", @placeholder = "Gastos Transporte", autocomplete = "off" })<br />
+                @Html.Label("Fecha de Registro Proceso: ")
+                @Html.TextBoxFor(model => model.process.Date, new { @class = "form-control", @placeholder = "Fecha Procedimiento", @id = "datepicker", autocomplete = "off" })<br />
 
 
-            <input type="submit" value="Registrar Procedimiento" class="btn-register" style="background-color:#B45F04; font-size:15px;
+                <input type="submit" value="Registrar Procedimiento" class="btn-register" style="background-color:#B45F04; font-size:15px;
                         text-align:center; width: 250px; height:50px; padding:10px  20px 10px 20px; margin-top: 12px;
                         border-radius: 4px; color: white" />
 
-            @Html.ValidationSummary();
-            @Html.ValidationMessageFor(model => model.patient.cedula);
-        }
-    </div>
+                @Html.ValidationSummary();
+                @Html.ValidationMessageFor(model => model.patient.cedula);
+            }
+        </div>
 }
 <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="https://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>

@@ -53,6 +53,7 @@ namespace Sarepta_WebApplication1.Controllers
                     process.Materials = model.process.Materials;
                     process.Transport = model.process.Transport;
                     process.Date = model.process.Date;
+                    process.real_Cost = model.process.real_Cost;
 
                     db.Processes.Add(process);
                     db.SaveChanges();

@@ -1,70 +1,104 @@
-﻿@model Sarepta_WebApplication1.Models.Treatment_Process
-  
+﻿<link rel="stylesheet" href="~/css/site.min.css" />
+<link href="~/css/creative.min.css" rel="stylesheet">
+<link href="~/css/site.min.css" rel="stylesheet" />
+
+@model Sarepta_WebApplication1.Models.Treatment_Process
+
 <h1>Bienvenida Doctora Alma Lizcano</h1><br />
 
-<div class="container" style="width:40%; margin-top:2%">
+<div class="container" style="width: 100%;">
     @using (Html.BeginForm("payment", "Payments", FormMethod.Post))
     {
         <h3>@Html.Label("Paciente Encontrado:") @ViewBag.messagge </h3> <br />
-        @Html.Label("Seleccione el procedimiento al que le va a asignar el pago") <br />      
+        @Html.Label("Seleccione el procedimiento al que le va a asignar el pago") <br />
         <div>
-            <table>
+            <table id="tbltreatments">
                 <tbody>
                     <tr>
                         <th>
-
                         </th>
                         <th>
-                            Nomebre del tratamiento
+                            Nombre del tratamiento
                         </th>
                         <th>
                             Adeuda
-                        </th>
-                        <th>
-
-                        </th>
+                        </th>                        
                     </tr>
 
                     @{int i = 0;}
                     @foreach (var item in Model.IDs)
                     {
-                        <tr>
-                            <td>
-                                <input type="checkbox" name="TreatmentId" value="@item" class="toggle-columnn" />
-                            </td>
+                        @if (Model.paymentsProcess[i] == 0)
+                        {
+                            <tr>
+                                <td>
+                                    <span>Pagado</span>
+                                </td>
 
-                            <td>
-                                <span>@Model.Name[i] </span>
-                            </td>
+                                <td>
+                                    <span>@Model.Name[i] </span>
+                                </td>
 
-                            <td>
-                                <span> @Model.paymentsProcess[i] </span>
-                                @{ i++; }
-                            </td>
-                            <td>
-                                <span class="table-remove glyphicon glyphicon-remove"></span>
-                            </td>
-                        </tr>
-                     }                        
+                                <td>
+                                    <span> @Model.paymentsProcess[i] </span>
+                                    @{ i++; }
+                                </td>                               
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="TreatmentId" value="@item" class="toggle-columnn" />
+                                </td>
+
+                                <td>
+                                    <span>@Model.Name[i] </span>
+                                </td>
+
+                                <td>
+                                    <span> @Model.paymentsProcess[i] </span>
+                                    @{ i++; }
+                                </td>                                
+                            </tr>
+                        }
+
+                    }
                 </tbody>
             </table>
         </div>
         <br />
 
-        <input type="submit" value="Ingresar Pago" class="btn-register" style="background-color:#B45F04; font-size:15px;
+        <input type="submit" value="Ingresar Pago" id="btnSubmit" class="btn-register" style="background-color:#B45F04; font-size:15px;
         text-align:center; width: 250px; height:50px; padding:10px  20px 10px 20px; margin-top: 12px;
         border-radius: 4px; color: white" />
     }
-</div> 
+</div>
 
-<script src= "https://code.jquery.com/jquery-3.3.1.min.js"> </script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
 <script>
     var checkBoxes = $('.toggle-columnn');
-    checkBoxes.click(function () {        
-        var x = checkBoxes; 
-        var index = checkBoxes.index($(this));       
-    });  
-</script>   
+    checkBoxes.click(function () {
+        var x = checkBoxes;
+        var index = checkBoxes.index($(this));
+    });
+</script>
+
+<script>
+    $(function () {
+        $("#btnSubmit").click(function () {
+            var checked_checkboxes = $("#tbltreatments input[type=checkbox]:checked");
+            if (checked_checkboxes.length == 0) {
+                alert("Seleccione al menos un tratamiento");
+                return false;
+            }
+            return true;
+        });
+    });
+</script>
+
+
 
 

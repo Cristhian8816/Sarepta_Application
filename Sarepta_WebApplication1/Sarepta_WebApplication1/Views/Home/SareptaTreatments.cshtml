@@ -1,4 +1,7 @@
-﻿@model IEnumerable<Sarepta_WebApplication1.Models.Treatments>
+﻿<link rel="stylesheet" href="~/css/site.min.css" />
+<link href="~/css/creative.min.css" rel="stylesheet">
+
+@model IEnumerable<Sarepta_WebApplication1.Models.Treatments>
 
 
 <h2>Lista de tratamientos Sarepta</h2>
@@ -15,7 +18,7 @@
                 </th>
                 <th>
                     Valor
-                </th>               
+                </th>
             </tr>
             <tr>
                 @foreach (var item in Model)
@@ -35,8 +38,7 @@
                     </td>
                     <td>
                         <span class="table-remove glyphicon glyphicon-remove"></span>
-                    </td>
-                    <td></td>
+                    </td>                    
                 </tr>
             }
             </tbody>

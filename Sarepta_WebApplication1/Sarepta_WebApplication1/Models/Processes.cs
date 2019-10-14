@@ -36,6 +36,7 @@ namespace Sarepta_WebApplication1.Models
         [Required(ErrorMessage = "Debe Ingresar una Fecha")]
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
+        public int real_Cost { get; set; }
     }
     public enum Home
     {

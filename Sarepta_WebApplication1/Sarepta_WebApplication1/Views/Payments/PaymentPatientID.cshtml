@@ -1,9 +1,11 @@
-﻿@model Sarepta_WebApplication1.Models.Patient_Payment
+﻿<link href="~/css/site.min.css" rel="stylesheet" />
+
+@model Sarepta_WebApplication1.Models.Patient_Payment
 
 @{   
     <h1>Bienvenida Doctora Alma Lizcano</h1><br />       
 
-    <div class="container" style="width:40%; margin-top:2%">
+    <div class="container">
         @using (Html.BeginForm("idPatient", "Payments", new {p = "hola" }, FormMethod.Post))
         {
             @Html.Label("Digite Numero de Documento del paciente al que se le va a asignar el pago: ")

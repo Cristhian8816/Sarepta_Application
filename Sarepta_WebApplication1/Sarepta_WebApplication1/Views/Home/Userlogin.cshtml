@@ -1,17 +1,22 @@
-﻿@model Sarepta_WebApplication1.Models.userAccount
+﻿<link href="https://fonts.googleapis.com/css?family=Kreon&display=swap" rel="stylesheet">
+<link href="~/css/site.min.css" rel="stylesheet" />
 
+
+@model Sarepta_WebApplication1.Models.userAccount
+
+<br /><br />
 <h2>Login de Usuario</h2><br />
-<p>Ingrese los datos de usuario y contraseña para hacer login al sistema</p>
+<p>Ingrese el nombre de usuario y contraseña para hacer login en el sistema</p>
 
-<div class="container" style="width:40%; margin-top:2%">
+<div class="container">
 
     @using (Html.BeginForm("Login", "Home", FormMethod.Post))
     {
         <input type="hidden" name="token" id="token" value="" />
 
-        @Html.Label("Usuario: ")
+        <strong>@Html.Label("Usuario: ")</strong>
         @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @placeholder = "Nombre de Usuario", autocomplete = "off" })<br />
-        @Html.Label("Password: ")
+        <strong>@Html.Label("Password: ")</strong>
         @Html.PasswordFor(model => model.Password, new { @class = "form-control", @placeholder = "Clave", autocomplete = "off", @value = "" })<br />
 
         <input type="submit" value="Ingresar" class="btn-register" style="background-color:#B45F04; font-size:15px;
