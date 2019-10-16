@@ -4,6 +4,15 @@
 
 @model Sarepta_WebApplication1.Models.Patients
 @{
+    <div style="width: 100%; margin-left: 60%">
+        @using (Html.BeginForm("MainSareptaSystem", "Home", FormMethod.Post))
+        {
+            <input type="submit" value="Regresar" class="btn-register" style="background-color:#B45F04; font-size:15px;
+                            text-align:center; width: 150px; height:50px; padding:10px  20px 10px 20px; margin-top: 12px;
+                            border-radius: 4px; color: white;" />
+        }
+    </div>
+
     <h1>Registro de un Nuevo Paciente</h1><br />
     <p>
         A continuacion encontrarà el formulario para el registro de un nuveo paciente con sus respectivos datos, al terminar

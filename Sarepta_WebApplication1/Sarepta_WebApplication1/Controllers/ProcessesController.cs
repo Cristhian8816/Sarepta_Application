@@ -19,14 +19,33 @@ namespace Sarepta_WebApplication1.Controllers
 
         public IActionResult SareptaProcesses()
         {
-            Patients patient = new Patients();
-            Treatments treatment = new Treatments();
-            Processes process = new Processes();
+            using (UsersContext db = new UsersContext())
+            {
+                Patient_Treatment patient_treatment = new Patient_Treatment();
 
-            Patient_Treatment patient_treatment = new Patient_Treatment();
+                List<string> treatments = new List<string>();
 
-            ViewBag.Sessionv = ((System.Security.Claims.ClaimsIdentity)((Microsoft.AspNetCore.Http.DefaultHttpContext)HttpContext).User.Identity).Name;
-            return View(patient_treatment);
+                IEnumerable<Treatments> listtreatments = null;
+
+                listtreatments = (from treat in db.Treatments
+                                  select new Treatments
+                                  {
+                                      Name = treat.Name,
+                                  }
+                        );
+
+                //Completed lists with the information brought
+                foreach (var treatment in listtreatments)
+                {
+                    treatments.Add(treatment.Name);
+
+                }
+
+                //pass the information from lists to lists's modelview to expose in a view
+                patient_treatment.treatments = treatments;
+
+                return View(patient_treatment);
+            }
         }
 
         public IActionResult process(Patient_Treatment model)

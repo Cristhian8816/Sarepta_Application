@@ -26,8 +26,10 @@ namespace Sarepta_WebApplication1.Controllers
         }        
         
         public IActionResult PatientRegister()
-        {                  
-            return View();
+        {
+            Patients patient = new Patients();
+            patient.CreatedAt = DateTime.Now;
+            return View(patient);
         }
 
         public IActionResult Patient(Patients model)

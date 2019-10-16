@@ -14,17 +14,6 @@ namespace Sarepta_WebApplication1.Models
         public string Name { get; set; }
        
         public int Price { get; set; }
-    }    
-
-    public enum Name
-    {
-        Seleccione,        
-        Corona_MP,
-        [Description("Protesis Parcial Superior Acrilico")]
-        Protesis_Partial_superior_acrilico,
-        [Description("Resina de Fotocurado")]
-        Resina_de_Fotocurado,
-        
-    }
-
+    }  
+    
 }

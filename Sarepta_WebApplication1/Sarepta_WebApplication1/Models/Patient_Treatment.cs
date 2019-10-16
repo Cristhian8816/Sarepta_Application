@@ -17,5 +17,7 @@ namespace Sarepta_WebApplication1.Models
         public string Name { get; set; }
         public DateTime Date { get; set; }
         public string treatment_Name { get; set; }
+
+        public List<string> treatments { get; set; }
     }
 }
