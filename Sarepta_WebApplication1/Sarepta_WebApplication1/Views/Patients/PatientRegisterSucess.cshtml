@@ -1,7 +1,8 @@
-﻿@model Sarepta_WebApplication1.Models.Patient_Treatment
+﻿@model Sarepta_WebApplication1.Models.Patients
 
-<h2>El proceso @Html.DisplayFor(modelItem => modelItem.treatment.Name) ha sido creado y asignado al paciente
-    @Html.DisplayFor(modelItem => modelItem.patient.Name) con èxito</h2>
+<h2>
+    El paciente @Html.DisplayFor(modelItem => modelItem.Name) ha sido registrado con èxito.
+</h2>
 
 <div class="container" style="width:40%; margin-top:2%">
     @using (Html.BeginForm("MainSareptaSystem", "Home", FormMethod.Post))

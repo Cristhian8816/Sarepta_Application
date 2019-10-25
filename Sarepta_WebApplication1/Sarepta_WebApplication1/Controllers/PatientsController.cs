@@ -18,6 +18,11 @@ namespace Sarepta_WebApplication1.Controllers
             return View();
         }
 
+        public IActionResult PatientRegisterSucess()
+        {
+            return View();
+        }
+
         public IActionResult SareptaPatients()
         {
             UsersContext db = new UsersContext();
@@ -56,7 +61,7 @@ namespace Sarepta_WebApplication1.Controllers
                 db.Patients.Add(pat);
                 db.SaveChanges();             
 
-                return RedirectToAction("SareptaPatients");
+                return RedirectToAction("PatientRegisterSucess");
             }
             else
             {

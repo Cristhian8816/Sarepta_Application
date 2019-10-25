@@ -3,7 +3,7 @@
         $("#datepicker").datepicker({
             changeMonth: true,
             changeYear: true,
-            yearRange: '2019:2020',
+            yearRange: '1920:2020',
             dateFormat: 'yy-mm-dd'
         });
     });
