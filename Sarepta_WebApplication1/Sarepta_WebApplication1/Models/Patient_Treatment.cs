@@ -19,5 +19,7 @@ namespace Sarepta_WebApplication1.Models
         public string treatment_Name { get; set; }
 
         public List<string> treatments { get; set; }
+
+        public List<string> names { get; set; }
     }
 }

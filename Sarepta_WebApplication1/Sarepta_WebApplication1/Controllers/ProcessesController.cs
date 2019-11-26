@@ -23,7 +23,7 @@ namespace Sarepta_WebApplication1.Controllers
             {
                 Patient_Treatment patient_treatment = new Patient_Treatment();
 
-                List<string> treatments = new List<string>();
+                List<string> treatments = new List<string>();                
 
                 IEnumerable<Treatments> listtreatments = null;
 
@@ -41,11 +41,41 @@ namespace Sarepta_WebApplication1.Controllers
 
                 }
 
+                List<string> names = new List<string>();
+                IEnumerable<Patients> listNames = null;
+
+                listNames = (from patient in db.Patients
+                             select new Patients
+                             {
+                                 Name = patient.Name,
+                             }
+                        );
+
+                //Completed lists with the information brought
+                foreach (var name in listNames)
+                {
+                    names.Add(name.Name);
+
+                }
+
                 //pass the information from lists to lists's modelview to expose in a view
                 patient_treatment.treatments = treatments;
+                patient_treatment.names = names;
 
                 return View(patient_treatment);
             }
+        }
+
+        public JsonResult searchpatient(string term)
+        {
+            UsersContext db = new UsersContext();
+            List<Patients> patientsSearch = db.Patients.Where(x => x.Name.Contains(term)).Select(x => new Patients
+            {
+               Name = x.Name,
+               cedula= x.cedula,
+               PatientId = x.PatientId
+            }).ToList();            
+            return Json(new { patientsSearch });
         }
 
         public IActionResult process(Patient_Treatment model)
