@@ -26,7 +26,9 @@ namespace Sarepta_WebApplication1.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Data Source = MVMOAN024P\\SQLEXPRESS; Initial Catalog = Sarepta_Consultory; Integrated Security = True");
+                optionsBuilder.UseSqlServer("Data Source=LAPTOP-E3OD0JS8\\SQLEXPRESS;Initial Catalog = Sarepta_Consultory;user id=desenv;password=desenv; MultipleActiveResultSets=true; Persist Security Info=True;");
+                
+                //optionsBuilder.UseSqlServer("Data Source = MVMOAN024P\\SQLEXPRESS; Initial Catalog = Sarepta_Consultory; Integrated Security = True");
                 
                 //optionsBuilder.UseSqlServer("Data Source = SQL5045.site4now.net; Initial Catalog = DB_A4E9E2_SareptaConsultory; User Id = DB_A4E9E2_SareptaConsultory_admin; Password = 40A39j21c14a11l");                
             }
