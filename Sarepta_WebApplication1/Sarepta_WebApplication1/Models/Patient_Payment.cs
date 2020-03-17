@@ -13,6 +13,7 @@ namespace Sarepta_WebApplication1.Models
         public Payments payment { get; set; }
 
         public int ID { get; set; }
+        public int amountPending { get; set; }
         public string Name { get; set; }
         public DateTime Date { get; set; }
         public string treatment_Name { get; set; }
