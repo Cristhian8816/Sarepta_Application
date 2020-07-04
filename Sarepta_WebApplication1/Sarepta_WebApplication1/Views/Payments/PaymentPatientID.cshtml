@@ -17,14 +17,64 @@
     <div class="container">
         @using (Html.BeginForm("idPatient", "Payments", new { p = "hola" }, FormMethod.Post))
         {
+            @Html.Label("Busque el paciente por el nombre:")
+            @Html.TextBoxFor(model => model.patient.Name, new { @class = "form-control", @id = "patientName" })<br />
             @Html.Label("Digite Numero de Documento del paciente al que se le va a asignar el pago: ")
-            @Html.TextBoxFor(model => model.patient.cedula, new { @class = "form-control", @placeholder = "Documento de Identidad", autocomplete = "off" })<br />
+            @Html.TextBoxFor(model => model.patient.cedula, new { @class = "form-control", @placeholder = "Documento de Identidad", @id = "patCedula" })<br />
 
             <input type="submit" value="Ingreso" class="btn-register" style="background-color:#B45F04; font-size:15px;
-                        text-align:center; width: 250px; height:50px; padding:10px  20px 10px 20px; margin-top: 12px;
-                        border-radius: 4px; color: white" />
+                text-align:center; width: 250px; height:50px; padding:10px  20px 10px 20px; margin-top: 12px;
+                border-radius: 4px; color: white" />
 
             @Html.ValidationMessageFor(model => model.patient.cedula);
         }
     </div>
 }
+
+<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+<link href="~/css/site.min.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="https://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
+<script src="~/js/datepicker.js"></script>
+
+<script>
+    var NamesArray = [];
+    var cedulasArray = [];
+    $("#patientName").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: '@Url.Action("searchpatient", "Processes")',
+                datatype: "json",
+                minLength: 3,
+                data: { term: request.term },
+                success: function (data) {
+                    data.patientsSearch.forEach((item, index) => {
+                        var tempObj = {
+                            name: item.name,
+                            cedula: item.cedula
+                        }
+                        NamesArray.push(item.name);
+                        cedulasArray.push(tempObj);
+                    })
+                    console.log("Patients Founds:", data);
+                    console.log("Cedulas Founds:", cedulasArray);
+                    $("#patCedula").val('');
+                    response(NamesArray);
+                },
+                error: function (xhr, status, error) {
+                    alert("Error");
+                }
+            });
+        }
+    });
+    $("#patientName").change(function () {
+        var valueCedula = cedulasArray.filter(function (x) {
+            console.log(valueCedula);
+            return x.name === $("#patientName").val();
+        });
+        $("#patCedula").val(valueCedula[0].cedula);
+        cedulasArray = [];
+        NamesArray = [];
+    });
+</script>
