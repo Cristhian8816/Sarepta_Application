@@ -24,7 +24,7 @@ namespace Sarepta_WebApplication1.Models
                 SmtpServer.UseDefaultCredentials = false;
 
                 // Agrega tu correo y tu contraseña, hemos usado el servidor de Outlook.
-                SmtpServer.Credentials = new System.Net.NetworkCredential("sarepta.odontologia@gmail.com", "piel2802");
+                SmtpServer.Credentials = new System.Net.NetworkCredential("sarepta.odontologia@gmail.com", "piel2802" + "");
                 SmtpServer.EnableSsl = true;
                 SmtpServer.Send(mail);
                 message = "Email enviado con exito";

@@ -19,7 +19,7 @@
         <body> 
             <div class="contenido">
                 <figure class="event_Imagecontainer">
-                    <img class="logo_Odontologia" src="../images/odontologiaEmailNotifications.jpg" width="640" height="500" alt="imagen odontologia" />
+                    <img class="logo_Odontologia" src="https://firebasestorage.googleapis.com/v0/b/makelup.appspot.com/o/emailNotification1.jfif?alt=media&token=622b68f8-118d-4ab1-8acc-0b5e436e036f" width="640" height="500" alt="imagen odontologia" />
                 </figure>
                 <p><strong>Nombre paciente</strong>: Se le Informa que su pago ha sido confirmado<p>
                 <p><strong>Fecha:</strong> Fecha de pago</p>                
@@ -28,8 +28,7 @@
                 <p><strong>Tiene un saldo de :</strong> Monto del saldo</p><br><br>
             </div>
 
-          <div>
-              <h4>http://cristhian8816-001-site1.itempurl.com</h4>
+          <div>              
               <h5>UNA SONRISA DICE MAS QUE MIL PALABRAS</h5>
           </div>              		 
         </body>          
