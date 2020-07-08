@@ -29,8 +29,7 @@
                 <p><strong>El paciente queda con un saldo de :</strong> Monto del saldo</p><br><br>
             </div>
 
-          <div>
-              <h4>http://cristhian8816-001-site1.itempurl.com</h4>
+          <div>              
               <h5>UNA SONRISA DICE MAS QUE MIL PALABRAS</h5>
           </div>              		 
         </body>          

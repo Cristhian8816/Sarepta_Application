@@ -3,12 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Hosting;
 using Sarepta_WebApplication1.Models;
 
 namespace Sarepta_WebApplication1.Controllers
 {
     public class PaymentsController : Controller
     {
+        private readonly IHostingEnvironment _env;
+
+        public PaymentsController(IHostingEnvironment env)
+        {
+            _env = env;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -101,6 +109,8 @@ namespace Sarepta_WebApplication1.Controllers
                 Payments payment = new Payments();
                 Notifications emailNotification = new Notifications();
 
+                string webRootPath = _env.WebRootPath;
+
                 if (statusTreatment - model.payment.Pay > 0)
                 {                    
                     var amount_Payments = db.Payments.Count();                    
@@ -126,9 +136,10 @@ namespace Sarepta_WebApplication1.Controllers
                     db.Payments.Add(payment);
                     db.SaveChanges();
 
-                    emailNotification.SendEmailUser(model);
-                    emailNotification.SendEmailHost(model);
+                    emailNotification.SendEmailUser(model, webRootPath);
+                    emailNotification.SendEmailHost(model, webRootPath);
                     return View("PaymentRegisterSucess");
+                    //return Json(a);
                 }
                 else if(statusTreatment - model.payment.Pay == 0)
                 {                    
@@ -156,8 +167,8 @@ namespace Sarepta_WebApplication1.Controllers
 
                     db.Payments.Add(payment);
                     db.SaveChanges();
-                    emailNotification.SendEmailUser(model);
-                    emailNotification.SendEmailHost(model);
+                    emailNotification.SendEmailUser(model, webRootPath);
+                    emailNotification.SendEmailHost(model, webRootPath);
 
                     foreach (var treatPayList in treatmentPayList)
                     {

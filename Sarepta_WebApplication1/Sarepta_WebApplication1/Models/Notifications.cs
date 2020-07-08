@@ -5,7 +5,7 @@ namespace Sarepta_WebApplication1.Models
 {
     public class Notifications
     {
-        public string SendEmailUser(Patient_Payment model)
+        public string SendEmailUser(Patient_Payment model, string webRootPath)
         {
             var hora = DateTime.Now;
             var message = "";
@@ -16,7 +16,7 @@ namespace Sarepta_WebApplication1.Models
                 mail.To.Add(model.patient.Email);
                 mail.Subject = "Notificacion de  " + "PAGO";
                 mail.IsBodyHtml = true;
-                mail.Body = htmlEmailRow(model, true);
+                mail.Body = htmlEmailRow(model, true, webRootPath);
 
                 var SmtpServer = new SmtpClient("smtp.gmail.com");
                 SmtpServer.Port = 587;
@@ -24,21 +24,20 @@ namespace Sarepta_WebApplication1.Models
                 SmtpServer.UseDefaultCredentials = false;
 
                 // Agrega tu correo y tu contraseña, hemos usado el servidor de Outlook.
-                SmtpServer.Credentials = new System.Net.NetworkCredential("sarepta.odontologia@gmail.com", "piel2802" + "");
+                SmtpServer.Credentials = new System.Net.NetworkCredential("sarepta.odontologia@gmail.com", "piel2802");
                 SmtpServer.EnableSsl = true;
                 SmtpServer.Send(mail);
                 message = "Email enviado con exito";
             }
             catch (Exception e)
             {
-                message = e.Message;
-                return message;
-                throw;
+                message = e.Message + "...." + e.StackTrace;
+                return message;            
             }
             return message;
         }
 
-        public string SendEmailHost(Patient_Payment model)
+        public string SendEmailHost(Patient_Payment model, string webRootPath)
         {
             var hora = DateTime.Now;
             var message = "";
@@ -49,7 +48,7 @@ namespace Sarepta_WebApplication1.Models
                 mail.To.Add("sarepta.odontologia@gmail.com");
                 mail.Subject = "Notificacion de  " + "PAGO";
                 mail.IsBodyHtml = true;
-                mail.Body = htmlEmailRow(model, false);
+                mail.Body = htmlEmailRow(model, false, webRootPath);
 
                 var SmtpServer = new SmtpClient("smtp.gmail.com");
                 SmtpServer.Port = 587;
@@ -71,21 +70,21 @@ namespace Sarepta_WebApplication1.Models
             return message;
         }
 
-        private static string htmlEmailRow(Patient_Payment model, bool user)
+        private static string htmlEmailRow(Patient_Payment model, bool user, string webRootPath)
         {
             var templatePath = string.Empty;
             var resultHTML = string.Empty;
 
             if (user)
             {
-                templatePath = "email\\PaymentNotificationToClient.txt";
+                templatePath = "\\email\\PaymentNotificationToClient.txt";
             }
             else
             {
-                templatePath = "email\\PaymentNotificationToHost.txt";
+                templatePath = "\\email\\PaymentNotificationToHost.txt";
             }
 
-            string rawTemplate = LoadNotificationTemplateHTML(templatePath);
+            string rawTemplate = LoadNotificationTemplateHTML(templatePath, webRootPath);
             if (user)
             {
                 resultHTML = BuildResultHTMLToUser(rawTemplate, model);
@@ -98,9 +97,9 @@ namespace Sarepta_WebApplication1.Models
             return resultHTML;
         }
 
-        public static string LoadNotificationTemplateHTML(string fileName)
+        public static string LoadNotificationTemplateHTML(string fileName, string webRootPath)
         {
-            var serverPath = "C:\\Users\\crist\\Documents\\Repositories\\Sarepta_Application\\Sarepta_WebApplication1\\Sarepta_WebApplication1\\wwwroot\\";                             
+            var serverPath = webRootPath;                             
             string filePath = string.Concat(serverPath, fileName);
             string htmlContent = System.IO.File.ReadAllText(filePath);
             return htmlContent;
