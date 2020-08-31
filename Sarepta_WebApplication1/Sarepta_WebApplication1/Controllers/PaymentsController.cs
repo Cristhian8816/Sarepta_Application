@@ -83,8 +83,8 @@ namespace Sarepta_WebApplication1.Controllers
             }
         }        
 
-        public IActionResult paymentProcess(Patient_Payment model, int pro_ID)        {
-            
+        public IActionResult paymentProcess(Patient_Payment model, int pro_ID, bool emailNotifications)
+        {            
             using (UsersContext db = new UsersContext())
             {                
                 var processIt = db.Processes.Where(x => x.ProcessId == pro_ID).FirstOrDefault();                
@@ -136,8 +136,11 @@ namespace Sarepta_WebApplication1.Controllers
                     db.Payments.Add(payment);
                     db.SaveChanges();
 
-                    emailNotification.SendEmailUser(model, webRootPath);
-                    emailNotification.SendEmailHost(model, webRootPath);
+                    if(emailNotifications)
+                    {
+                        emailNotification.SendEmailUser(model, webRootPath);
+                        emailNotification.SendEmailHost(model, webRootPath);
+                    }                    
                     return View("PaymentRegisterSucess");
                     //return Json(a);
                 }
@@ -167,9 +170,11 @@ namespace Sarepta_WebApplication1.Controllers
 
                     db.Payments.Add(payment);
                     db.SaveChanges();
-                    emailNotification.SendEmailUser(model, webRootPath);
-                    emailNotification.SendEmailHost(model, webRootPath);
-
+                    if (emailNotifications)
+                    {
+                        emailNotification.SendEmailUser(model, webRootPath);
+                        emailNotification.SendEmailHost(model, webRootPath);
+                    }
                     foreach (var treatPayList in treatmentPayList)
                     {
                         treatPayList.Status = "payment";
